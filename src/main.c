@@ -13,15 +13,23 @@
 #include "flecs.h"
 #include <math.h>
 
-Camera3D camera;
+#include <spine/spine.h>
+
+#define WINDOW_WIDTH 300
+#define WINDOW_HEIGHT 600
+
+spAtlas* atlas = NULL;
+Texture2D scarfy;
+Rectangle sourceRec;
+Rectangle destRec;
+Vector2 origin;
 
 void cube_init_position(ecs_rows_t * rows) {
-    ECS_COLUMN(rows, Vector3, position, 1);
+    ECS_COLUMN(rows, Vector2, position, 1);
 
     for(int i = 0; i < rows->count; i++) {
         position[i].x = 0;
         position[i].y = 0;
-        position[i].z = 0;
     }
 }
 
@@ -29,90 +37,107 @@ void cube_init_position(ecs_rows_t * rows) {
 
 void cube_render(ecs_rows_t *rows) {
 
-    ECS_COLUMN(rows, Vector3, position, 1);
+    ECS_COLUMN(rows, Vector2, position, 1);
 
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    BeginMode3D(camera);
 
-    for (int i = 0; i < rows->count; i ++) {
-        DrawCube(position[i], 2.0f, 2.0f, 2.0f, CLITERAL(Color){11, 110, 176, 255});
-        DrawCubeWires(position[i], 2.0f, 2.0f, 2.0f, MAROON);
-    }
+    DrawTexturePro(scarfy, sourceRec, destRec, origin, 0, WHITE);
 
-    DrawGrid(10, 1.0f);
-    EndMode3D();
+    DrawLine((int)destRec.x, 0, (int)destRec.x, WINDOW_HEIGHT, GRAY);
+    DrawLine(0, (int)destRec.y, WINDOW_WIDTH, (int)destRec.y, GRAY);
+
+    DrawText("(c) Scarfy sprite by Eiden Marsal", WINDOW_WIDTH - 200, WINDOW_HEIGHT - 20, 10, GRAY);
+
     DrawFPS(10, 10);
     EndDrawing();
-}
-
-void cube_update_position(ecs_rows_t *rows) {
-    static float phase = 0;
-    phase += 1.0 * rows->delta_time;
-    ECS_COLUMN(rows, Vector3, position, 1);
-    for(int i = 0; i < rows->count; i++) {
-        camera.position.x = sin(phase) * 10;
-        camera.position.z = cos(phase) * 10;
-        camera.position.y = 10;
-
-    }
 }
 
 void cube_init_world(ecs_world_t** world, int argc, char** argv){
     *world = ecs_init_w_args(argc, argv);
     ECS_TAG(*world, Rendereable);
-    ECS_COMPONENT(*world, Vector3);
+    ECS_COMPONENT(*world, Vector2);
 
-    ECS_SYSTEM(*world, cube_render, EcsOnUpdate, Vector3, Rendereable);
+    ECS_SYSTEM(*world, cube_render, EcsOnUpdate, Vector2, Rendereable);
 
-    ECS_SYSTEM(*world, cube_init_position, EcsOnAdd, Vector3);
+    ECS_SYSTEM(*world, cube_init_position, EcsOnAdd, Vector2);
 
-    ECS_SYSTEM(*world, cube_update_position, EcsOnUpdate, Vector3);
-
-    ECS_ENTITY(*world, cube, Vector3, Rendereable);
-    ecs_set_target_fps(*world, 120);
+    ECS_ENTITY(*world, cube, Vector2, Rendereable);
+    ecs_set_target_fps(*world, 60);
 }
 
-void init_camera() {
+void init_window() {
     printf("Initializando\n");
 
-    InitWindow(800, 600, "raylib [core] example - 3d camera free");
-
-    // Define the camera to look into our 3d world
-    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f }; // Camera position
-    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
-    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-    camera.fovy = 45.0f;                                // Camera field-of-view Y
-    camera.type = CAMERA_PERSPECTIVE;                   // Camera mode type
-
-    SetCameraMode(camera, CAMERA_FREE); // Set a free camera mode
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "raylib [core] example - 3d camera free");
 
     SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
 }
 
+void init_spine() {
+    atlas = spAtlas_createFromFile("assets/dragon/NewDragon.atlas", 0);
+    spSkeletonJson* json = spSkeletonJson_create(atlas);
 
+    spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/dragon/NewDragon.json");
+    if (!skeletonData) {
+        printf("%s\n", json->error);
+        spSkeletonJson_dispose(json);
+        printf('STOP!');
+    }
+    printf('STOP!');
+
+
+}
+
+void destroy_spine() {
+    spAtlas_dispose(atlas);
+}
 
 int main(int argc, char* argv[]) {
     ecs_world_t *world;
 
-    init_camera();
+    init_window();
+    init_spine();
 
     world = ecs_init_w_args(argc, argv);
 
+    scarfy = LoadTexture("assets/scarfy.png");        // Texture loading
+
+    int frameWidth = scarfy.width/6;
+    int frameHeight = scarfy.height;
+
+    // Source rectangle (part of the texture to use for drawing)
+    sourceRec.x = sourceRec.y = 0.0f;
+    sourceRec.width = frameWidth;
+    sourceRec.height = frameHeight;
+
+    // Destination rectangle (screen rectangle where drawing part of texture)
+    destRec.x = WINDOW_WIDTH/2;
+    destRec.y = WINDOW_HEIGHT/2;
+
+    destRec.width = frameWidth * 2;
+    destRec.height = frameHeight * 2;
+
+    // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
+    origin.x = frameWidth;
+    origin.y = frameHeight;
+
+
     ECS_TAG(world, Rendereable);
-    ECS_COMPONENT(world, Vector3);
+    ECS_COMPONENT(world, Vector2);
 
-    ECS_SYSTEM(world, cube_render, EcsOnUpdate, Vector3, Rendereable);
+    ECS_SYSTEM(world, cube_render, EcsOnUpdate, Vector2, Rendereable);
+    ECS_SYSTEM(world, cube_init_position, EcsOnAdd, Vector2);
 
-    ECS_SYSTEM(world, cube_init_position, EcsOnAdd, Vector3);
-
-    ECS_SYSTEM(world, cube_update_position, EcsOnUpdate, Vector3);
-
-    ECS_ENTITY(world, cube, Vector3, Rendereable);
+    ECS_ENTITY(world, cube, Vector2, Rendereable);
     ecs_set_target_fps(world, 60);
 
     while(ecs_progress(world, 0) && !WindowShouldClose());
 
     ecs_fini(world);
+    destroy_spine();
+    UnloadTexture(scarfy);        // Texture unloading
     CloseWindow();
+
+    return 0;
 }
