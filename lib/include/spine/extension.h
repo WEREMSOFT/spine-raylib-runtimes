@@ -321,4 +321,6 @@ int _spCurveTimeline_binarySearch (float *values, int valuesLength, float target
 }
 #endif
 
+void drawSkeleton(spSkeleton* skeleton);
+
 #endif /* SPINE_EXTENSION_H_ */

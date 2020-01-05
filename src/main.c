@@ -14,15 +14,20 @@
 #include <math.h>
 
 #include <spine/spine.h>
+#include <spine/extension.h>
 
-#define WINDOW_WIDTH 300
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
 
 spAtlas* atlas = NULL;
 Texture2D scarfy;
 Rectangle sourceRec;
 Rectangle destRec;
 Vector2 origin;
+
+spSkeletonJson* json;
+spSkeletonData* skeletonData;
+spSkeleton* skeleton;
 
 void cube_init_position(ecs_rows_t * rows) {
     ECS_COLUMN(rows, Vector2, position, 1);
@@ -47,7 +52,7 @@ void cube_render(ecs_rows_t *rows) {
     DrawLine((int)destRec.x, 0, (int)destRec.x, WINDOW_HEIGHT, GRAY);
     DrawLine(0, (int)destRec.y, WINDOW_WIDTH, (int)destRec.y, GRAY);
 
-    DrawText("(c) Scarfy sprite by Eiden Marsal", WINDOW_WIDTH - 200, WINDOW_HEIGHT - 20, 10, GRAY);
+    drawSkeleton(skeleton);
 
     DrawFPS(10, 10);
     EndDrawing();
@@ -76,21 +81,22 @@ void init_window() {
 
 void init_spine() {
     atlas = spAtlas_createFromFile("assets/dragon/NewDragon.atlas", 0);
-    spSkeletonJson* json = spSkeletonJson_create(atlas);
+    json = spSkeletonJson_create(atlas);
 
-    spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/dragon/NewDragon.json");
+    skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/dragon/NewDragon.json");
     if (!skeletonData) {
         printf("%s\n", json->error);
         spSkeletonJson_dispose(json);
-        printf('STOP!');
+        printf("ERROR!\n");
     }
-    printf('STOP!');
 
-
+    skeleton = spSkeleton_create(skeletonData);
+    printf("STOP!\n");
 }
 
 void destroy_spine() {
     spAtlas_dispose(atlas);
+    spSkeleton_dispose(skeleton);
 }
 
 int main(int argc, char* argv[]) {
