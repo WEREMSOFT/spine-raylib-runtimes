@@ -66,7 +66,7 @@ void cube_init_world(ecs_world_t** world, GameContext *gameContext, int argc, ch
     ecs_set_system_context(*world, cube_update_position, gameContext);
 
     ECS_ENTITY(*world, cube, Vector3, Rendereable);
-    ecs_set_target_fps(*world, 60);
+    ecs_set_target_fps(*world, 120);
 }
 
 #endif //RAYLIBTEST_CUBE_H

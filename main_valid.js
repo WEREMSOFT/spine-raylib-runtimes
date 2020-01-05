@@ -157,7 +157,7 @@ Module.expectedDataFileDownloads++;
             "audio": 0,
             "end": 25922,
             "filename": "/assets/smoke.png"
-        }], "remote_package_size": 25922, "package_uuid": "fde13eb7-8ddb-4e1f-b312-29bf15326b8b"
+        }], "remote_package_size": 25922, "package_uuid": "841b7047-e8cf-4c66-982f-36fd5d01a0ca"
     })
 })();
 var moduleOverrides = {};
@@ -593,7 +593,7 @@ function updateGlobalBufferAndViews(buf) {
     Module["HEAPF64"] = HEAPF64 = new Float64Array(buf)
 }
 
-var DYNAMIC_BASE = 5291824, DYNAMICTOP_PTR = 48784;
+var DYNAMIC_BASE = 5291872, DYNAMICTOP_PTR = 48832;
 var INITIAL_TOTAL_MEMORY = Module["TOTAL_MEMORY"] || 16777216;
 if (Module["wasmMemory"]) {
     wasmMemory = Module["wasmMemory"]
@@ -5842,8 +5842,10 @@ function __maybeCStringToJsString(cString) {
 var __specialEventTargets = [0, typeof document !== "undefined" ? document : 0, typeof window !== "undefined" ? window : 0];
 
 function __findEventTarget(target) {
-    var domElement = __specialEventTargets[target] || (typeof document !== "undefined" ? document.querySelector(__maybeCStringToJsString(target)) : undefined);
-    return domElement
+    console.log('query selector');
+    var targetString = __maybeCStringToJsString(target);
+    var domElement = __specialEventTargets[target] || ((typeof document !== "undefined" && targetString) ? document.querySelector(__maybeCStringToJsString(target)) : undefined);
+    return domElement;
 }
 
 function _emscripten_request_pointerlock(target, deferUntilInEventHandler) {

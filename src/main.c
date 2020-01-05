@@ -46,9 +46,10 @@ int main(int argc, char* argv[]) {
     cube_init_world(&levels[LEVEL_CUBE], &game_context, argc, argv);
     height_map_init_world(&levels[LEVEL_HEIGHT_MAP], &game_context, argc, argv);
 
-    game_context.world = levels[LEVEL_HEIGHT_MAP];
+    game_context.world = levels[LEVEL_CUBE];
 
     current_level = LEVEL_CUBE;
+
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(game_update, 0, 1);

@@ -33,7 +33,7 @@ GameContext game_init_context() {
 
     SetCameraMode(return_value.camera, CAMERA_FREE); // Set a free camera mode
 
-    SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
+//    SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
 
     return return_value;
 }
