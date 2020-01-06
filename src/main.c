@@ -8,13 +8,14 @@
 *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
 *
 ********************************************************************************************/
-
 #include "raylib.h"
 #include "flecs.h"
 #include <math.h>
 
 #include <spine/spine.h>
 #include <spine/extension.h>
+
+#include "TextureManager.h"
 
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
@@ -107,7 +108,7 @@ int main(int argc, char* argv[]) {
 
     world = ecs_init_w_args(argc, argv);
 
-    scarfy = LoadTexture("assets/scarfy.png");        // Texture loading
+    scarfy = *texture_2d_create("assets/scarfy.png");        // Texture loading
 
     int frameWidth = scarfy.width/6;
     int frameHeight = scarfy.height;
@@ -143,6 +144,7 @@ int main(int argc, char* argv[]) {
     ecs_fini(world);
     destroy_spine();
     UnloadTexture(scarfy);        // Texture unloading
+    texture_2d_destroy();
     CloseWindow();
 
     return 0;

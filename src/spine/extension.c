@@ -30,6 +30,7 @@
 #include <spine/extension.h>
 #include <stdio.h>
 #include <raylib.h>
+#include "../TextureManager.h"
 
 float _spInternalRandom () {
 	return rand() / (float)RAND_MAX;
@@ -102,16 +103,13 @@ char* _spReadFile (const char* path, int* length) {
 char* _spUtil_readFile(const char* path, int* length) {
     return _spReadFile(path, length);
 }
-// TODO Pablo: Esto es una negrada. Hacer un texture manager.
-Texture textures[255];
 void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
-    static int textureIndex = 0;
-    textureIndex++;
-    textures[textureIndex] = LoadTexture(path);
 
-    self->rendererObject = &textures[textureIndex];
-    self->width = textures[textureIndex].width;
-    self->height = textures[textureIndex].height;
+    Texture2D* t = texture_2d_create(path);
+
+    self->rendererObject = t;
+    self->width = t->width;
+    self->height = t->height;
 }
 
 typedef struct Vertex {
