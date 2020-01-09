@@ -30,6 +30,7 @@
 #include <spine/extension.h>
 #include <stdio.h>
 #include <raylib.h>
+#include <rlgl.h>
 #include "../TextureManager.h"
 
 float _spInternalRandom () {
@@ -140,10 +141,36 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
     vertex->a = a;
     *index += 1;
 }
-//void engine_drawMesh(Vertex* vertices, int start, int count, Texture* texture, BlendMode blendmode);
+
+void draw_vertex(Vertex vertex){
+    rlTexCoord2f(vertex.u, vertex.v);
+    rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+    rlVertex3f(400 + vertex.x, 300 + vertex.y, 0);
+}
+
+// TODO Pablo: Show the vertex and textures of the skeleton.
 void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture){
-    DrawTexture(*texture, 0, 0, WHITE);
-    //printf("renderizando mesh!!!!\n");
+    Vertex vertex;
+//    if (rlCheckBufferLimit(36)) rlglDraw();
+
+    rlEnableTexture(texture->id);
+
+    rlPushMatrix();
+    {
+        rlBegin(RL_QUADS);
+        {
+            rlNormal3f(0.0f, 0.0f, 1.0f);
+            for (int i = 0; i < numVertices; i++){
+                if(i < 3 || i == 4){
+                    vertex = vertices[i];
+//                    vertex.y *= -1;
+
+                    draw_vertex(vertex);
+                }
+            }
+        }rlEnd();
+    }rlPopMatrix();
+    rlDisableTexture();
 }
 
 void drawSkeleton(spSkeleton* skeleton) {

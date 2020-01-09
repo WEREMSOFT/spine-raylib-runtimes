@@ -10,15 +10,15 @@
 ********************************************************************************************/
 #include "raylib.h"
 #include "flecs.h"
-#include <math.h>
-
 #include <spine/spine.h>
+
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
 #include <spine/extension.h>
 
 #include "TextureManager.h"
 
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 768
 
 spAtlas* atlas = NULL;
 Texture2D scarfy;
@@ -29,6 +29,8 @@ Vector2 origin;
 spSkeletonJson* json;
 spSkeletonData* skeletonData;
 spSkeleton* skeleton;
+spAnimationStateData* animationStateData;
+spAnimationState* animationState;
 
 void cube_init_position(ecs_rows_t * rows) {
     ECS_COLUMN(rows, Vector2, position, 1);
@@ -46,12 +48,16 @@ void cube_render(ecs_rows_t *rows) {
     ECS_COLUMN(rows, Vector2, position, 1);
 
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground(GRAY);
 
-    DrawTexturePro(scarfy, sourceRec, destRec, origin, 0, WHITE);
+//    DrawTexturePro(scarfy, sourceRec, destRec, origin, 0, WHITE);
 
     DrawLine((int)destRec.x, 0, (int)destRec.x, WINDOW_HEIGHT, GRAY);
     DrawLine(0, (int)destRec.y, WINDOW_WIDTH, (int)destRec.y, GRAY);
+
+    spAnimationState_update(animationState,rows->delta_time);
+    spAnimationState_apply(animationState, skeleton);
+    spSkeleton_updateWorldTransform(skeleton);
 
     drawSkeleton(skeleton);
 
@@ -92,7 +98,20 @@ void init_spine() {
     }
 
     skeleton = spSkeleton_create(skeletonData);
-    printf("STOP!\n");
+
+    // TODO Pablo: Create and set animation.
+    // Create the spAnimationStateData
+    animationStateData = spAnimationStateData_create(skeletonData);
+    animationState = spAnimationState_create(animationStateData);
+// Add the animation "walk" to track 0, without delay, and let it loop indefinitely
+    int track = 0;
+    int loop = 1;
+    float delay = 0;
+    spAnimationState_addAnimationByName(animationState, track, "flying", loop, delay);
+    spAnimationState_addAnimationByName(animationState, 0, "flying", 1, 0);
+    spAnimationState_update(animationState,.0f);
+    spAnimationState_apply(animationState, skeleton);
+    spSkeleton_updateWorldTransform(skeleton);
 }
 
 void destroy_spine() {
