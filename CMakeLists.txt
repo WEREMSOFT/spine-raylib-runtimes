@@ -8,7 +8,7 @@ set(OPTIMIZATION_FLAGS -O0)
 
 link_directories ("${PROJECT_SOURCE_DIR}/lib/static")
 # -lflecs_static
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OPTIMIZATION_FLAGS} -lflecs_static -lraylib -framework OpenGL -framework GLUT -framework Cocoa -framework CoreVideo -framework IOKit -v")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OPTIMIZATION_FLAGS} -lraylib -framework OpenGL -framework GLUT -framework Cocoa -framework CoreVideo -framework IOKit -v")
 
 FILE(GLOB sources src/*)
 FILE(GLOB sources_spine src/spine/*)

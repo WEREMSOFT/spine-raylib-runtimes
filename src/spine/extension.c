@@ -31,7 +31,78 @@
 #include <stdio.h>
 #include <raylib.h>
 #include <rlgl.h>
-#include "../TextureManager.h"
+
+#define MAX_TEXTURES 10
+static Texture2D tm_textures[MAX_TEXTURES] = {0};
+static int texture_index = 0;
+
+typedef struct Vertex {
+    // Position in x/y plane
+    float x, y;
+
+    // UV coordinates
+    float u, v;
+
+    // Color, each channel in the range from 0-1
+    // (Should really be a 32-bit RGBA packed color)
+    float r, g, b, a;
+} Vertex;
+
+#define MAX_VERTICES_PER_ATTACHMENT 2048
+float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
+
+Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
+
+void addVertex(float x, float y, float u, float v, float r, float g, float b, float a, int* index) {
+    Vertex* vertex = &vertices[*index];
+    vertex->x = x;
+    vertex->y = y;
+    vertex->u = u;
+    vertex->v = v;
+    vertex->r = r;
+    vertex->g = g;
+    vertex->b = b;
+    vertex->a = a;
+    *index += 1;
+}
+
+void draw_vertex(Vertex vertex, Vector3 position){
+    rlTexCoord2f(vertex.u, vertex.v);
+    rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+    rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z);
+}
+
+void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture, Vector3 position){
+    Vertex vertex;
+
+    rlEnableTexture(texture->id);
+
+    rlPushMatrix();
+    {
+        rlBegin(RL_QUADS);
+        {
+            rlNormal3f(0.0f, 0.0f, 1.0f);
+            for (int i = 0; i < numVertices; i++){
+                if(i < 3 || i == 4){
+                    vertex = vertices[i];
+                    draw_vertex(vertex, position);
+                }
+            }
+        }rlEnd();
+    }rlPopMatrix();
+    rlDisableTexture();
+}
+
+Texture2D* texture_2d_create(char *path) {
+    tm_textures[texture_index] = LoadTexture(path);
+    Texture2D *t = &tm_textures[texture_index];
+    texture_index++;
+    return t;
+}
+
+void texture_2d_destroy() {
+    while(texture_index--) UnloadTexture(tm_textures[texture_index]);
+}
 
 float _spInternalRandom () {
 	return rand() / (float)RAND_MAX;
@@ -106,74 +177,18 @@ char* _spUtil_readFile(const char* path, int* length) {
 }
 void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
 
-    Texture2D* t = texture_2d_create(path);
+    Texture2D* t = texture_2d_create((char *)path);
 
     self->rendererObject = t;
     self->width = t->width;
     self->height = t->height;
 }
 
-typedef struct Vertex {
-    // Position in x/y plane
-    float x, y;
-
-    // UV coordinates
-    float u, v;
-
-    // Color, each channel in the range from 0-1
-    // (Should really be a 32-bit RGBA packed color)
-    float r, g, b, a;
-} Vertex;
-
 #define MAX_VERTICES_PER_ATTACHMENT 2048
 float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
 
-void addVertex(float x, float y, float u, float v, float r, float g, float b, float a, int* index) {
-    Vertex* vertex = &vertices[*index];
-    vertex->x = x;
-    vertex->y = y;
-    vertex->u = u;
-    vertex->v = v;
-    vertex->r = r;
-    vertex->g = g;
-    vertex->b = b;
-    vertex->a = a;
-    *index += 1;
-}
-
-void draw_vertex(Vertex vertex){
-    rlTexCoord2f(vertex.u, vertex.v);
-    rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-    rlVertex3f(400 + vertex.x, 300 + vertex.y, 0);
-}
-
-// TODO Pablo: Show the vertex and textures of the skeleton.
-void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture){
-    Vertex vertex;
-//    if (rlCheckBufferLimit(36)) rlglDraw();
-
-    rlEnableTexture(texture->id);
-
-    rlPushMatrix();
-    {
-        rlBegin(RL_QUADS);
-        {
-            rlNormal3f(0.0f, 0.0f, 1.0f);
-            for (int i = 0; i < numVertices; i++){
-                if(i < 3 || i == 4){
-                    vertex = vertices[i];
-//                    vertex.y *= -1;
-
-                    draw_vertex(vertex);
-                }
-            }
-        }rlEnd();
-    }rlPopMatrix();
-    rlDisableTexture();
-}
-
-void drawSkeleton(spSkeleton* skeleton) {
+void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
     // For each slot in the draw order array of the skeleton
     for (int i = 0; i < skeleton->slotsCount; ++i) {
         spSlot* slot = skeleton->drawOrder[i];
@@ -271,7 +286,7 @@ void drawSkeleton(spSkeleton* skeleton) {
 
         }
         // Draw the mesh we created for the attachment
-        engine_drawMesh(vertices, vertexIndex, texture);
+        engine_drawMesh(vertices, vertexIndex, texture, position);
     }
 }
 
