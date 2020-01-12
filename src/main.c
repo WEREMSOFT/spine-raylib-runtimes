@@ -12,6 +12,7 @@
 #include <spine/spine.h>
 #include <spine/extension.h>
 #include <stdio.h>
+#include <rlgl.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
@@ -22,6 +23,7 @@ int main()
     //--------------------------------------------------------------------------------------
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib spine example - basic window");
+//    rlDisableBackfaceCulling();
 
     spAtlas* atlas = NULL;
     spSkeletonJson* json;
@@ -42,6 +44,7 @@ int main()
         printf("ERROR!\n");
     }
 
+    spBone_setYDown(true);
     skeleton = spSkeleton_create(skeletonData);
     skeleton->scaleX = 0.5;
     skeleton->scaleY = 0.5;
@@ -71,12 +74,11 @@ int main()
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(DARKBLUE);
 
         spAnimationState_update(animationState, GetFrameTime());
         spAnimationState_apply(animationState, skeleton);
         spSkeleton_updateWorldTransform(skeleton);
-
         drawSkeleton(skeleton, skeletonPosition);
 
         DrawFPS(10, 10);

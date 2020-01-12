@@ -66,27 +66,24 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
     *index += 1;
 }
 
-void draw_vertex(Vertex vertex, Vector3 position){
-    rlTexCoord2f(vertex.u, vertex.v);
-    rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-    rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z);
-}
+
 
 void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture, Vector3 position){
-    Vertex vertex;
-
     rlEnableTexture(texture->id);
-
     rlPushMatrix();
     {
-        rlBegin(RL_QUADS);
+        rlBegin(RL_TRIANGLES);
         {
-            rlNormal3f(0.0f, 0.0f, 1.0f);
-            for (int i = 0; i < numVertices; i++){
-                if(i < 3 || i == 4){
-                    vertex = vertices[i];
-                    draw_vertex(vertex, position);
-                }
+            rlNormal3f(0.0f, 0.0f, -1.0f);
+            for(int i = 2; i >=0; i--){
+                rlTexCoord2f(vertices[i].u, vertices[i].v);
+                rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
+                rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
+            }
+            for(int i = 5; i >=3; i--){
+                rlTexCoord2f(vertices[i].v, vertices[i].u);
+                rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
+                rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
             }
         }rlEnd();
     }rlPopMatrix();
@@ -189,6 +186,10 @@ float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
 
 void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
+
+    // Early out if skeleton is invisible
+    if (skeleton->color.a == 0) return;
+
     // For each slot in the draw order array of the skeleton
     for (int i = 0; i < skeleton->slotsCount; ++i) {
         spSlot* slot = skeleton->drawOrder[i];
