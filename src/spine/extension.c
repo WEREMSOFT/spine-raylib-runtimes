@@ -69,25 +69,34 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
 
 
 void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture, Vector3 position){
-    rlEnableTexture(texture->id);
     rlPushMatrix();
     {
         rlBegin(RL_TRIANGLES);
         {
+            rlEnableTexture(texture->id);
             rlNormal3f(0.0f, 0.0f, -1.0f);
-            for(int i = 2; i >=0; i--){
+            for(int i = 2; i >= 0; i--){
                 rlTexCoord2f(vertices[i].u, vertices[i].v);
                 rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
                 rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
             }
-            for(int i = 5; i >=3; i--){
-                rlTexCoord2f(vertices[i].v, vertices[i].u);
+            rlDisableTexture();
+        }rlEnd();
+    }rlPopMatrix();
+    rlPushMatrix();
+    {
+        rlBegin(RL_TRIANGLES);
+        {
+        rlEnableTexture(texture->id);
+            rlNormal3f(0.0f, 0.0f, -1.0f);
+            for(int i = 5; i > 2; i--){
+                rlTexCoord2f(vertices[i].u, vertices[i].v);
                 rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
                 rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
             }
+        rlDisableTexture();
         }rlEnd();
     }rlPopMatrix();
-    rlDisableTexture();
 }
 
 Texture2D* texture_2d_create(char *path) {

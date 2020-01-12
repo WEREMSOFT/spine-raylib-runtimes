@@ -23,7 +23,7 @@ int main()
     //--------------------------------------------------------------------------------------
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib spine example - basic window");
-//    rlDisableBackfaceCulling();
+    rlDisableBackfaceCulling();
 
     spAtlas* atlas = NULL;
     spSkeletonJson* json;
