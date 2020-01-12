@@ -66,37 +66,23 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
     *index += 1;
 }
 
-
-
-void engine_drawMesh(Vertex* vertices, int numVertices, Texture* texture, Vector3 position){
+void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* vertex_order){
+    Vertex vertex;
+    rlEnableTexture(texture->id);
     rlPushMatrix();
     {
-        rlBegin(RL_TRIANGLES);
+        rlBegin(RL_QUADS);
         {
-            rlEnableTexture(texture->id);
-            rlNormal3f(0.0f, 0.0f, -1.0f);
-            for(int i = 2; i >= 0; i--){
-                rlTexCoord2f(vertices[i].u, vertices[i].v);
-                rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
-                rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
+            rlNormal3f(0.0f, 0.0f, 1.0f);
+            for (int i = 0; i < 4; i++){
+                vertex = vertices[vertex_order[i]];
+                rlTexCoord2f(vertex.u, vertex.v);
+                rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z);
             }
-            rlDisableTexture();
         }rlEnd();
     }rlPopMatrix();
-    rlPushMatrix();
-    {
-        rlBegin(RL_TRIANGLES);
-        {
-        rlEnableTexture(texture->id);
-            rlNormal3f(0.0f, 0.0f, -1.0f);
-            for(int i = 5; i > 2; i--){
-                rlTexCoord2f(vertices[i].u, vertices[i].v);
-                rlColor4f(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
-                rlVertex3f( position.x + vertices[i].x, position.y + vertices[i].y, position.z);
-            }
-        rlDisableTexture();
-        }rlEnd();
-    }rlPopMatrix();
+    rlDisableTexture();
 }
 
 Texture2D* texture_2d_create(char *path) {
@@ -193,12 +179,13 @@ void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
 #define MAX_VERTICES_PER_ATTACHMENT 2048
 float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
+const int VERTEX_ORDER_NORMAL[] =  {0, 1, 2, 4 };
+const int VERTEX_ORDER_INVERSE[] =  {4, 2, 1, 0 };
+
 
 void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
 
-    // Early out if skeleton is invisible
-    if (skeleton->color.a == 0) return;
-
+    int* vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
     // For each slot in the draw order array of the skeleton
     for (int i = 0; i < skeleton->slotsCount; ++i) {
         spSlot* slot = skeleton->drawOrder[i];
@@ -296,7 +283,7 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
 
         }
         // Draw the mesh we created for the attachment
-        engine_drawMesh(vertices, vertexIndex, texture, position);
+        engine_drawMesh(vertices, texture, position, vertex_order);
     }
 }
 
