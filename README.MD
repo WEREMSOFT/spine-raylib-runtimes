@@ -23,7 +23,7 @@ spine-raylib works with data exported from Spine 3.8.x.
 
 1. Download the Spine Runtimes source using [git](https://help.github.com/articles/set-up-git) or by downloading it as a zip via the download button above.
 1. Use the file main.c as a starting point.
-1. Compile and run.
+1. Compile and run. If you need extra help compiling in the different platforms, check the awesome [Raylib documentation](https://github.com/raysan5/raylib/wiki) under the **Development Platforms** section.
 
 ## Notes
 
@@ -31,8 +31,6 @@ In order to use the generic C runtimes from Spine, you need to implement a bunch
 All this functions are in src/spine-raylib.h they are independent from spine runtime library.
 
 The intention of this is to give the freedom to the user to upgrade the spine runtime libraries if needed with very little or no changes.
-
-Even if we work with spine and raylib on a daily basis and we hope will this runtime will be up-to-date most of the time, the user has the freedom up upgrade the spine base library with very little or no re-work on the raylib part.
 
 In order to upgrade the spine library, you have to download the [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c) library and overwrite the /lib/include/spine and the /lib/src/spine folders.
 
