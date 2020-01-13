@@ -1,9 +1,3 @@
-## spine-raylib
-
-: A simple and easy-to-use library to enjoy videogames programming.
-
-[Spine](http://esotericsoftware.com/): Spine is an animation tool that focuses specifically on 2D animation for games. Spine aims to have an efficient, streamlined workflow, both for creating animations using the editor and for making use of those animations in games using the Spine Runtimes.
-
 # spine-raylib
 
 The spine-raylib runtime provides functionality to load, manipulate and render [Spine](http://esotericsoftware.com) skeletal animation data using [Raylib](https://www.raylib.com/). spine-raylib is based on [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c).
