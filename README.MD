@@ -1,6 +1,7 @@
 # spine-raylib
 
 <img align="left" src="./assets/raylib_logo.png" width=256>
+<img align="left" src="./assets/spine_logo_bright.svg" width=256>
 
 The spine-raylib runtime provides functionality to load, manipulate and render [Spine](http://esotericsoftware.com) skeletal animation data using [Raylib](https://www.raylib.com/). spine-raylib is based on [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c).
 
