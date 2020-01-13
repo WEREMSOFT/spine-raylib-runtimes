@@ -15,6 +15,16 @@
 static Texture2D tm_textures[MAX_TEXTURES] = {0};
 static int texture_index = 0;
 
+char* _spUtil_readFile(const char* path, int* length) {
+    return _spReadFile(path, length);
+}
+
+void _spAtlasPage_disposeTexture (spAtlasPage* self) {
+    if (self->rendererObject == NULL) return;
+    Texture2D *t2d = self->rendererObject;
+    UnloadTexture(*t2d);
+}
+
 typedef struct Vertex {
     // Position in x/y plane
     float x, y;

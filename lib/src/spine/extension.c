@@ -98,16 +98,6 @@ char* _spReadFile (const char* path, int* length) {
 	return data;
 }
 
-char* _spUtil_readFile(const char* path, int* length) {
-    return _spReadFile(path, length);
-}
-
-void _spAtlasPage_disposeTexture (spAtlasPage* self) {
-    if (self->rendererObject == NULL) return;
-    Texture2D *t2d = self->rendererObject;
-    UnloadTexture(*t2d);
-}
-
 float _spMath_random(float min, float max) {
 	return min + (max - min) * _spRandom();
 }
