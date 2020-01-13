@@ -4,6 +4,8 @@
 
 The spine-raylib runtime provides functionality to load, manipulate and render [Spine](http://esotericsoftware.com) skeletal animation data using [Raylib](https://www.raylib.com/). spine-raylib is based on [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c).
 
+One of the most amazing features of [Raylib](https://www.raylib.com/), besides the easy of use and it's numerous ports to several languajes, is the hability to compile to [WebAssembly](https://webassembly.org/), allowing to show your games arround the world with just a link. 
+
 ## Licensing
 You are welcome to evaluate the Spine Runtimes and the examples we provide in this repository free of charge.
 
