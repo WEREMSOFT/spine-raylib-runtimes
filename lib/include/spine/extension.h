@@ -61,7 +61,6 @@
 #define SPINE_EXTENSION_H_
 
 #include <spine/dll.h>
-#include <raylib.h>
 
 /* Required for sprintf and consorts on MSVC */
 #ifdef _MSC_VER
@@ -95,6 +94,7 @@
 /* Allocates a new char[], assigns it to TO, and copies FROM to it. Can be used on const types. */
 #define MALLOC_STR(TO,FROM) strcpy(CONST_CAST(char*, TO) = (char*)MALLOC(char, strlen(FROM) + 1), FROM)
 
+#define PI 3.1415926535897932385f
 #define PI2 (PI * 2)
 #define DEG_RAD (PI / 180)
 #define RAD_DEG (180 / PI)
@@ -320,11 +320,5 @@ int _spCurveTimeline_binarySearch (float *values, int valuesLength, float target
 #ifdef __cplusplus
 }
 #endif
-
-// Extension functions needed to integrate raylib
-void drawSkeleton(spSkeleton* skeleton, Vector3 position);
-Texture2D* texture_2d_create(char *path);
-void texture_2d_destroy();
-
 
 #endif /* SPINE_EXTENSION_H_ */

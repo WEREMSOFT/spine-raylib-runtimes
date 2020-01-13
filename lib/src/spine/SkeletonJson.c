@@ -937,8 +937,6 @@ spSkeletonData* spSkeletonJson_readSkeletonData (spSkeletonJson* self, const cha
 			skeletonData->skins[skeletonData->skinsCount++] = skin;
 			if (strcmp(skin->name, "default") == 0) skeletonData->defaultSkin = skin;
 
-            attachmentsMap = Json_getItem(skinMap, "attachments")->child;
-
 			for (attachmentsMap = Json_getItem(skinMap, "attachments")->child; attachmentsMap; attachmentsMap = attachmentsMap->next) {
 				spSlotData* slot = spSkeletonData_findSlot(skeletonData, attachmentsMap->name);
 				Json *attachmentMap;
