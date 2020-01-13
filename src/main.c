@@ -10,7 +10,7 @@
 ********************************************************************************************/
 
 #include <spine/spine.h>
-#include <spine/extension.h>
+#include "spine-raylib.h"
 #include <stdio.h>
 #include <rlgl.h>
 

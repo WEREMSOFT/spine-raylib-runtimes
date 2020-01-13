@@ -16,6 +16,6 @@ else()
 endif()
 
 FILE(GLOB sources src/*)
-FILE(GLOB sources_spine src/spine/*)
+FILE(GLOB sources_spine lib/src/spine/*)
 add_executable(raylibtest ${sources} ${sources_spine})
 target_include_directories(raylibtest PRIVATE lib/include)
