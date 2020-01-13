@@ -4,7 +4,6 @@ project(raylibtest C)
 file(COPY assets DESTINATION ./)
 set(CMAKE_C_STANDARD 99)
 
-# -lflecs_static
 if(WIN32)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
     set(__STDC__ 1) # there's a bool collision between raylib and flecs
