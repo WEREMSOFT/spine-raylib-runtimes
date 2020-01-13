@@ -34,6 +34,10 @@ In order to upgrade the spine library, you have to download the [spine-c](https:
 
 The function ```drawSkeleton(skeleton, skeletonPosition)``` draws the spine in a 3d coordinates, so it can be used as a billboard, but is the user who need to orientate the spine skeleton to the camera during the game loop.
 
+This project is based on CMake as a build pipeline.
+
 ## Examples
 
-A hughe list of [examples](https://www.raylib.com/examples.html) can be found on the [raylib examples page](https://www.raylib.com/examples.html).
+This CMake based project is an example of how to use the library on a 2D settings.
+
+For more examples regarding RayLib, a huge list of [examples](https://www.raylib.com/examples.html) can be found on the [raylib examples page](https://www.raylib.com/examples.html).
