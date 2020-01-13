@@ -5,11 +5,8 @@
 #ifndef RAYLIBTEST_SPINE_RAYLIB_H
 #define RAYLIBTEST_SPINE_RAYLIB_H
 
-#include <raylib.h>
-#include <spine/spine.h>
 #include <spine/extension.h>
 #include <rlgl.h>
-#include <raymath.h>
 
 #define MAX_TEXTURES 10
 static Texture2D tm_textures[MAX_TEXTURES] = {0};
