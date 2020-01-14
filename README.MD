@@ -4,7 +4,7 @@
 
 The spine-raylib runtime provides functionality to load, manipulate and render [Spine](http://esotericsoftware.com) skeletal animation data using [Raylib](https://www.raylib.com/). spine-raylib is based on [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c).
 
-One of the most amazing features of [Raylib](https://www.raylib.com/), besides the easy of use and it's numerous ports to several languajes, is the hability to compile to [WebAssembly](https://webassembly.org/), allowing to show your games arround the world with just a link. 
+One of the most amazing features of [Raylib](https://www.raylib.com/), besides the ease of use and its numerous ports to several languages, is the ability to compile to [WebAssembly](https://webassembly.org/), allowing to show your games arround the world with just a link. 
 
 ## Licensing
 You are welcome to evaluate the Spine Runtimes and the examples we provide in this repository free of charge.
@@ -28,18 +28,18 @@ spine-raylib works with data exported from Spine 3.8.x.
 ## Notes
 
 In order to use the generic C runtimes from Spine, you need to implement a bunch of functions on your code. 
-All this functions are in src/spine-raylib.h they are independent from spine runtime library.
+All these functions are in src/spine-raylib.h and they are independent from spine runtime library.
 
 The intention of this is to give the freedom to the user to upgrade the spine runtime libraries if needed with very little or no changes.
 
 In order to upgrade the spine library, you have to download the [spine-c](https://github.com/EsotericSoftware/spine-runtimes/tree/3.8/spine-c) library and overwrite the /lib/include/spine and the /lib/src/spine folders.
 
-The function ```drawSkeleton(skeleton, skeletonPosition)``` draws the spine in a 3d coordinates, so it can be used as a billboard, but is the user who need to orientate the spine skeleton to the camera during the game loop.
+The function ```drawSkeleton(skeleton, skeletonPosition)``` draws the spine in 3d coordinates, so it can be used as a billboard, but is the user who needs to orientate the spine skeleton to the camera during the game loop.
 
 This project is based on CMake as a build pipeline.
 
 ## Examples
 
-This CMake based project is an example of how to use the library on a 2D settings.
+This CMake-based project is an example of how to use the library on a 2D setting.
 
 For more examples regarding RayLib, a huge list of [examples](https://www.raylib.com/examples.html) can be found on the [raylib examples page](https://www.raylib.com/examples.html).
