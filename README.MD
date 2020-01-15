@@ -16,9 +16,17 @@ In order to distribute your software containing the Spine Runtimes to others tha
 For the official legal terms governing the Spine Runtimes, please read the [Spine Runtimes License Agreement](http://esotericsoftware.com/spine-runtimes-license) and Section 2 of the [Spine Editor License Agreement](http://esotericsoftware.com/spine-editor-license#s2).
 
 ## Examples
-Check this examples
+
+This CMake-based project is an example of how to use the library on a 2D setting.
+
 * [Example 2D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d/example_2d.html)
+<img align="left" src="./doc_images/example_2D.png" width="300">
 * [Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
+<img align="left" src="./doc_images/example_3D.png" width="300">
+
+For more examples regarding RayLib, a huge list of [examples](https://www.raylib.com/examples.html) can be found on the [raylib examples page](https://www.raylib.com/examples.html).
+
+
 
 ## Spine version
 
@@ -42,9 +50,3 @@ In order to upgrade the spine library, you have to download the [spine-c](https:
 The function ```drawSkeleton(skeleton, skeletonPosition)``` draws the spine in 3d coordinates, so it can be used as a billboard, but is the user who needs to orientate the spine skeleton to the camera during the game loop.
 
 This project is based on CMake as a build pipeline.
-
-## Examples
-
-This CMake-based project is an example of how to use the library on a 2D setting.
-
-For more examples regarding RayLib, a huge list of [examples](https://www.raylib.com/examples.html) can be found on the [raylib examples page](https://www.raylib.com/examples.html).
