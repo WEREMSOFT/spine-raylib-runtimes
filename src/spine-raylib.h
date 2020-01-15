@@ -7,6 +7,7 @@
 
 #include <spine/extension.h>
 #include <rlgl.h>
+float anti_z_fighting_indez = .0;
 
 #define MAX_TEXTURES 10
 static Texture2D tm_textures[MAX_TEXTURES] = {0};
@@ -52,7 +53,6 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
     *index += 1;
 }
 
-
 void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* vertex_order){
     Vertex vertex;
     rlEnableTexture(texture->id);
@@ -65,7 +65,7 @@ void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* 
                 vertex = vertices[vertex_order[i]];
                 rlTexCoord2f(vertex.u, vertex.v);
                 rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z);
+                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_indez);
             }
         }rlEnd();
     }rlPopMatrix();
@@ -104,7 +104,9 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
 
     int* vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
     // For each slot in the draw order array of the skeleton
+    anti_z_fighting_indez = 0;
     for (int i = 0; i < skeleton->slotsCount; ++i) {
+        anti_z_fighting_indez -= .3;
         spSlot* slot = skeleton->drawOrder[i];
 
         // Fetch the currently active attachment, continue

@@ -14,8 +14,45 @@
 #include <stdio.h>
 #include <rlgl.h>
 
+#if defined(PLATFORM_WEB)
+#include <emscripten/emscripten.h>
+#endif
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
+
+Camera camera = { 0 };
+
+spAtlas* atlas = NULL;
+spSkeletonJson* json;
+spSkeletonData* skeletonData;
+spSkeleton* skeleton;
+spAnimationStateData* animationStateData;
+spAnimationState* animationState;
+Vector3 skeletonPosition = { 0, -100, 0};
+
+void UpdateDrawFrame(void) {
+    // Draw
+    //----------------------------------------------------------------------------------
+    UpdateCamera(&camera);
+    BeginDrawing();
+
+    ClearBackground(RAYWHITE);
+    BeginMode3D(camera);
+    DrawGrid(1000, 100.0f);        // Draw a grid
+
+    spAnimationState_update(animationState, GetFrameTime());
+    spAnimationState_apply(animationState, skeleton);
+    spSkeleton_updateWorldTransform(skeleton);
+    drawSkeleton(skeleton, skeletonPosition);
+    EndMode3D();
+    DrawFPS(10, 10);
+
+    EndDrawing();
+    //----------------------------------------------------------------------------------
+}
+
+
 
 int main()
 {
@@ -24,12 +61,12 @@ int main()
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib spine example - basic window");
 
-    spAtlas* atlas = NULL;
-    spSkeletonJson* json;
-    spSkeletonData* skeletonData;
-    spSkeleton* skeleton;
-    spAnimationStateData* animationStateData;
-    spAnimationState* animationState;
+    camera.position = (Vector3){ 300.0f, -300.0f, 300.0f };
+    camera.target = (Vector3){ 0.0f, -100.0f, 0.0f };
+    camera.up = (Vector3){ 0.0f, -1.0f, 0.0f };
+    camera.fovy = 60.0f;
+    camera.type = CAMERA_PERSPECTIVE;
+    SetCameraMode(camera, CAMERA_ORBITAL);
 
     // Init spine
     atlas = spAtlas_createFromFile("assets/dragon/NewDragon.atlas", 0);
@@ -61,30 +98,22 @@ int main()
     spAnimationState_apply(animationState, skeleton);
     spSkeleton_updateWorldTransform(skeleton);
 
-    Vector3 skeletonPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0};
-
     SetTargetFPS(60);
+    //--------------------------------------------------------------------------------------
+
+    // Main game loop
+#if defined(PLATFORM_WEB)
+    emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
+#else
+    SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
-
-        ClearBackground(DARKBLUE);
-
-        spAnimationState_update(animationState, GetFrameTime());
-        spAnimationState_apply(animationState, skeleton);
-        spSkeleton_updateWorldTransform(skeleton);
-        drawSkeleton(skeleton, skeletonPosition);
-
-        DrawFPS(10, 10);
-
-        EndDrawing();
-        //----------------------------------------------------------------------------------
+        UpdateDrawFrame();
     }
+#endif
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
