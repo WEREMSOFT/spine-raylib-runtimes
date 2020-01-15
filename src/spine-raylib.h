@@ -4,12 +4,18 @@
 
 #ifndef RAYLIBTEST_SPINE_RAYLIB_H
 #define RAYLIBTEST_SPINE_RAYLIB_H
+#ifndef SP_LAYER_SPACING
+    #define SP_LAYER_SPACING 0
+#endif
 
-#define SP_DRAW_DOUBLE_FACED
+#ifndef SP_LAYER_SPACING_BASE
+    #define SP_LAYER_SPACING_BASE 0
+#endif
 
 #include <spine/extension.h>
 #include <rlgl.h>
-float anti_z_fighting_indez = .0;
+float anti_z_fighting_index = SP_LAYER_SPACING_BASE;
+
 
 #define MAX_TEXTURES 10
 static Texture2D tm_textures[MAX_TEXTURES] = {0};
@@ -67,7 +73,7 @@ void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* 
                 vertex = vertices[vertex_order[i]];
                 rlTexCoord2f(vertex.u, vertex.v);
                 rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_indez);
+                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_index);
             }
         }rlEnd();
 
@@ -79,7 +85,7 @@ void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* 
                 vertex = vertices[vertex_order[i]];
                 rlTexCoord2f(vertex.u, vertex.v);
                 rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z - anti_z_fighting_indez);
+                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z - anti_z_fighting_index);
             }
         }rlEnd();
 #endif
@@ -112,17 +118,17 @@ void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
 #define MAX_VERTICES_PER_ATTACHMENT 2048
 float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
-const int VERTEX_ORDER_NORMAL[] =  {0, 1, 2, 4 };
-const int VERTEX_ORDER_INVERSE[] =  {4, 2, 1, 0 };
+int VERTEX_ORDER_NORMAL[] =  {0, 1, 2, 4 };
+int VERTEX_ORDER_INVERSE[] =  {4, 2, 1, 0 };
 
 
 void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
 
     int* vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
     // For each slot in the draw order array of the skeleton
-    anti_z_fighting_indez = 0;
+    anti_z_fighting_index = SP_LAYER_SPACING_BASE;
     for (int i = 0; i < skeleton->slotsCount; ++i) {
-        anti_z_fighting_indez -= .3;
+        anti_z_fighting_index -= SP_LAYER_SPACING;
         spSlot* slot = skeleton->drawOrder[i];
 
         // Fetch the currently active attachment, continue

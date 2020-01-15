@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(raylibtest C)
+project(example2d C)
 
 file(COPY assets DESTINATION ./)
 set(CMAKE_C_STANDARD 99)
@@ -17,5 +17,8 @@ endif()
 
 FILE(GLOB sources src/*)
 FILE(GLOB sources_spine lib/src/spine/*)
-add_executable(raylibtest ${sources} ${sources_spine})
-target_include_directories(raylibtest PRIVATE lib/include)
+add_executable(example2d src/example_2d.c ${sources_spine})
+target_include_directories(example2d PRIVATE lib/include)
+
+add_executable(example3d src/example_3d.c ${sources_spine})
+target_include_directories(example3d PRIVATE lib/include)
