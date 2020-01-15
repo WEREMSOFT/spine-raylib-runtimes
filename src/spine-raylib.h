@@ -5,6 +5,8 @@
 #ifndef RAYLIBTEST_SPINE_RAYLIB_H
 #define RAYLIBTEST_SPINE_RAYLIB_H
 
+#define SP_DRAW_DOUBLE_FACED
+
 #include <spine/extension.h>
 #include <rlgl.h>
 float anti_z_fighting_indez = .0;
@@ -68,6 +70,20 @@ void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* 
                 rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_indez);
             }
         }rlEnd();
+
+#ifdef SP_DRAW_DOUBLE_FACED
+        rlBegin(RL_QUADS);
+        {
+            rlNormal3f(0.0f, 0.0f, 1.0f);
+            for (int i = 3; i >= 0; i--){
+                vertex = vertices[vertex_order[i]];
+                rlTexCoord2f(vertex.u, vertex.v);
+                rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+                rlVertex3f( position.x + vertex.x, position.y + vertex.y, position.z - anti_z_fighting_indez);
+            }
+        }rlEnd();
+#endif
+
     }rlPopMatrix();
     rlDisableTexture();
 }
