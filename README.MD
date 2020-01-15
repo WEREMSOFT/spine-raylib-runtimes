@@ -18,7 +18,7 @@ For the official legal terms governing the Spine Runtimes, please read the [Spin
 ## Examples
 Check this examples
 * [Example 2D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d/example_2d.html)
-* [Example 3d](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
+* [Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
 
 ## Spine version
 
