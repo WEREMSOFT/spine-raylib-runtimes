@@ -19,10 +19,12 @@ For the official legal terms governing the Spine Runtimes, please read the [Spin
 
 This CMake-based project is an example of how to use the library on a 2D setting.
 
+### Example 2D
 [Example 2D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d/example_2d.html)
 
 <img align="left" src="./doc_images/example_2d.png" width="300">
 
+### Example 3D
 [Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
 
 <img align="left" src="./doc_images/example_3d.png" width="300">
