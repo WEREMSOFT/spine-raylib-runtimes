@@ -1,5 +1,4 @@
 .idea
 cmake-build-debug
 *.obj
-*.wasm
 *.o
