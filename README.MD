@@ -40,7 +40,7 @@ spine-raylib works with data exported from Spine 3.8.x.
 ## Setup
 
 1. Download the Spine Runtimes source using [git](https://help.github.com/articles/set-up-git) or by downloading it as a zip via the download button above.
-1. Use the file main.c as a starting point.
+1. Use the file src/example_2d.c for an example with a 2D camera. Use src/example_3d.c for an example with a 3D camera.
 1. Compile and run. If you need extra help compiling in the different platforms, check the awesome [Raylib documentation](https://github.com/raysan5/raylib/wiki) under the **Development Platforms** section.
 
 ## Notes
