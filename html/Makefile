@@ -26,7 +26,7 @@
 PROJECT_NAME       ?= main
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
-RAYLIB_PATH        ?= /Users/pabloweremczuk/Documents/Proyectos/delete-me/raylib
+RAYLIB_PATH        ?= /Users/pabloweremczuk/Documents/Proyectos/c/raylib
 
 # Define default options
 
@@ -164,9 +164,9 @@ ifeq ($(PLATFORM),PLATFORM_RPI)
 endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # HTML5 emscripten compiler
-    # WARNING: To compile to HTML5, code must be redesigned 
+    # WARNING: To compile to HTML5, code must be redesigned
     # to use emscripten.h and emscripten_set_main_loop()
-    CC = /Users/pabloweremczuk/Documents/Proyectos/delete-me/emsdk/upstream/emscripten/emcc
+    CC = /Users/pabloweremczuk/Documents/tools/emsdk/upstream/emscripten/emcc
 endif
 
 # Define default make program: Mingw32-make
@@ -187,7 +187,7 @@ endif
 #  -std=gnu99           defines C language mode (GNU C from 1999 revision)
 #  -Wno-missing-braces  ignore invalid warning (GCC bug 53119)
 #  -D_DEFAULT_SOURCE    use with -std=c99 on Linux and PLATFORM_WEB, required for timespec
-CFLAGS += -O1 -s -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces
+CFLAGS += -O1 -s -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0
 
 ifeq ($(BUILD_MODE),DEBUG)
     CFLAGS += -g
@@ -229,7 +229,7 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     # --profiling                # include information for code profiling
     # --memory-init-file 0       # to avoid an external memory initialization code file (.mem)
     # --preload-file resources   # specify a resources folder for data compilation
-    CFLAGS += -Os -s USE_GLFW=3 -s TOTAL_MEMORY=16777216 --preload-file assets
+    CFLAGS += -Os -s USE_GLFW=3 -s TOTAL_MEMORY=16777216 --preload-file ../assets
     ifeq ($(BUILD_MODE), DEBUG)
         CFLAGS += -s ASSERTIONS=1 --profiling
     endif
@@ -241,7 +241,7 @@ endif
 
 # Define include paths for required headers
 # NOTE: Several external required libraries (stb and others)
-INCLUDE_PATHS = -I./lib/include -I$(RAYLIB_PATH)/src -I$(RAYLIB_PATH)/src/external
+INCLUDE_PATHS = -I../lib/include -I$(RAYLIB_PATH)/src -I$(RAYLIB_PATH)/src/external
 
 # Define additional directories containing required header files
 ifeq ($(PLATFORM),PLATFORM_RPI)
@@ -295,12 +295,12 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
         # Libraries for Debian GNU/Linux desktop compiling
         # NOTE: Required packages: libegl1-mesa-dev
         LDLIBS = -lraylib -lGL -lm -lpthread -ldl -lrt
-        
+
         # On X11 requires also below libraries
         LDLIBS += -lX11
         # NOTE: It seems additional libraries are not required any more, latest GLFW just dlopen them
         #LDLIBS += -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor
-        
+
         # On Wayland windowing system, additional libraries requires
         ifeq ($(USE_WAYLAND_DISPLAY),TRUE)
             LDLIBS += -lwayland-client -lwayland-cursor -lwayland-egl -lxkbcommon
@@ -335,18 +335,18 @@ ifeq ($(PLATFORM),PLATFORM_RPI)
 endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # Libraries for web (HTML5) compiling
-    LDLIBS = $(RAYLIB_RELEASE_PATH)/libraylib.bc $(RAYLIB_RELEASE_PATH)/libflecs_static.bc
+    LDLIBS = ../lib/static/libraylib.bc ../lib/static/libflecs_static.bc
 endif
 
 # Define all source files required
-PROJECT_SOURCE_FILES ?= ./src/main.c
+PROJECT_SOURCE_FILES ?= ../src/main.c ../lib/src/spine/*
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))
 
 # For Android platform we call a custom Makefile.Android
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
-    MAKEFILE_PARAMS = -f Makefile.Android 
+    MAKEFILE_PARAMS = -f Makefile.Android
     export PROJECT_NAME
     export PROJECT_SOURCE_FILES
 else
