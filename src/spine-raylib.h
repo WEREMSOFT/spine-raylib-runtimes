@@ -5,15 +5,17 @@
 #ifndef RAYLIBTEST_SPINE_RAYLIB_H
 #define RAYLIBTEST_SPINE_RAYLIB_H
 #ifndef SP_LAYER_SPACING
-    #define SP_LAYER_SPACING 0
+#define SP_LAYER_SPACING 0
 #endif
 
 #ifndef SP_LAYER_SPACING_BASE
-    #define SP_LAYER_SPACING_BASE 0
+#define SP_LAYER_SPACING_BASE 0
 #endif
 
 #include <spine/extension.h>
 #include <rlgl.h>
+#include <stdio.h>
+
 float anti_z_fighting_index = SP_LAYER_SPACING_BASE;
 
 
@@ -21,11 +23,11 @@ float anti_z_fighting_index = SP_LAYER_SPACING_BASE;
 static Texture2D tm_textures[MAX_TEXTURES] = {0};
 static int texture_index = 0;
 
-char* _spUtil_readFile(const char* path, int* length) {
+char *_spUtil_readFile(const char *path, int *length) {
     return _spReadFile(path, length);
 }
 
-void _spAtlasPage_disposeTexture (spAtlasPage* self) {
+void _spAtlasPage_disposeTexture(spAtlasPage *self) {
     if (self->rendererObject == NULL) return;
     Texture2D *t2d = self->rendererObject;
     UnloadTexture(*t2d);
@@ -48,8 +50,8 @@ float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
 
-void addVertex(float x, float y, float u, float v, float r, float g, float b, float a, int* index) {
-    Vertex* vertex = &vertices[*index];
+void addVertex(float x, float y, float u, float v, float r, float g, float b, float a, int *index) {
+    Vertex *vertex = &vertices[*index];
     vertex->x = x;
     vertex->y = y;
     vertex->u = u;
@@ -61,7 +63,7 @@ void addVertex(float x, float y, float u, float v, float r, float g, float b, fl
     *index += 1;
 }
 
-void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* vertex_order){
+void engine_draw_region(Vertex* vertices, Texture* texture, Vector3 position, int* vertex_order){
     Vertex vertex;
     rlEnableTexture(texture->id);
     rlPushMatrix();
@@ -93,8 +95,45 @@ void engine_drawMesh(Vertex* vertices, Texture* texture, Vector3 position, int* 
     }rlPopMatrix();
     rlDisableTexture();
 }
+void engine_drawMesh(Vertex *vertices, int start, int count, Texture *texture, Vector3 position, int *vertex_order) {
+    Vertex vertex;
+    rlPushMatrix();
+    {
+        for (int vertexIndex = start; vertexIndex < count; vertexIndex += 3) {
+            rlEnableTexture(texture->id);
+            rlBegin(RL_QUADS);
+            {
+                int i;
+                for (i = 2; i > -1; i--) {
+                    vertex = vertices[vertexIndex + i];
+                    rlTexCoord2f(vertex.u, vertex.v);
+                    rlColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+                    rlVertex3f(position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_index);
+                }
+                rlVertex3f(position.x + vertex.x, position.y + vertex.y, position.z + anti_z_fighting_index);
+            }
+            rlEnd();
+#ifdef SP_DRAW_DOUBLE_FACED
+            fprintf(stderr, "double sided not supported for mesh based spine files\n");
+            exit(-1);
+#endif
 
-Texture2D* texture_2d_create(char *path) {
+#ifdef SP_RENDER_WIREFRAME
+                DrawTriangleLines((Vector2) {vertices[vertexIndex].x + position.x, vertices[vertexIndex].y + position.y},
+                                  (Vector2) {vertices[vertexIndex + 1].x + position.x, vertices[vertexIndex + 1].y + position.y},
+                                  (Vector2) {vertices[vertexIndex + 2].x + position.x, vertices[vertexIndex + 2].y + position.y}, vertexIndex == 0 ? RED : GREEN);
+#endif
+
+        }
+
+
+
+    }
+    rlPopMatrix();
+    rlDisableTexture();
+}
+
+Texture2D *texture_2d_create(char *path) {
     tm_textures[texture_index] = LoadTexture(path);
     Texture2D *t = &tm_textures[texture_index];
     texture_index++;
@@ -102,12 +141,12 @@ Texture2D* texture_2d_create(char *path) {
 }
 
 void texture_2d_destroy() {
-    while(texture_index--) UnloadTexture(tm_textures[texture_index]);
+    while (texture_index--) UnloadTexture(tm_textures[texture_index]);
 }
 
-void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
+void _spAtlasPage_createTexture(spAtlasPage *self, const char *path) {
 
-    Texture2D* t = texture_2d_create((char *)path);
+    Texture2D *t = texture_2d_create((char *) path);
 
     self->rendererObject = t;
     self->width = t->width;
@@ -118,23 +157,23 @@ void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
 #define MAX_VERTICES_PER_ATTACHMENT 2048
 float worldVerticesPositions[MAX_VERTICES_PER_ATTACHMENT];
 Vertex vertices[MAX_VERTICES_PER_ATTACHMENT];
-int VERTEX_ORDER_NORMAL[] =  {0, 1, 2, 4 };
-int VERTEX_ORDER_INVERSE[] =  {4, 2, 1, 0 };
+int VERTEX_ORDER_NORMAL[] = {0, 1, 2, 4};
+int VERTEX_ORDER_INVERSE[] = {4, 2, 1, 0};
 
 
-void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
+void drawSkeleton(spSkeleton *skeleton, Vector3 position) {
 
-    int* vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
+    int *vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
     // For each slot in the draw order array of the skeleton
     anti_z_fighting_index = SP_LAYER_SPACING_BASE;
     for (int i = 0; i < skeleton->slotsCount; ++i) {
         anti_z_fighting_index -= SP_LAYER_SPACING;
-        spSlot* slot = skeleton->drawOrder[i];
+        spSlot *slot = skeleton->drawOrder[i];
 
         // Fetch the currently active attachment, continue
         // with the next slot in the draw order if no
         // attachment is active on the slot
-        spAttachment* attachment = slot->attachment;
+        spAttachment *attachment = slot->attachment;
         if (!attachment) continue;
 
         // Calculate the tinting color based on the skeleton's color
@@ -147,17 +186,17 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
         float tintA = skeleton->color.a * slot->color.a;
 
         // Fill the vertices array depending on the type of attachment
-        Texture* texture = 0;
+        Texture *texture = 0;
         int vertexIndex = 0;
         if (attachment->type == SP_ATTACHMENT_REGION) {
             // Cast to an spRegionAttachment so we can get the rendererObject
             // and compute the world vertices
-            spRegionAttachment* regionAttachment = (spRegionAttachment*)attachment;
+            spRegionAttachment *regionAttachment = (spRegionAttachment *) attachment;
 
             // Our engine specific Texture is stored in the spAtlasRegion which was
             // assigned to the attachment on load. It represents the texture atlas
             // page that contains the image the region attachment is mapped to
-            texture = (Texture*)((spAtlasRegion*)regionAttachment->rendererObject)->page->rendererObject;
+            texture = (Texture *) ((spAtlasRegion *) regionAttachment->rendererObject)->page->rendererObject;
 
             // Computed the world vertices positions for the 4 vertices that make up
             // the rectangular region attachment. This assumes the world transform of the
@@ -190,10 +229,12 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
             addVertex(worldVerticesPositions[0], worldVerticesPositions[1],
                       regionAttachment->uvs[0], regionAttachment->uvs[1],
                       tintR, tintG, tintB, tintA, &vertexIndex);
+
+            engine_draw_region(vertices, texture, position, vertex_order);
         } else if (attachment->type == SP_ATTACHMENT_MESH) {
             // Cast to an spMeshAttachment so we can get the rendererObject
             // and compute the world vertices
-            spMeshAttachment* mesh = (spMeshAttachment*)attachment;
+            spMeshAttachment *mesh = (spMeshAttachment *) attachment;
 
             // Check the number of vertices in the mesh attachment. If it is bigger
             // than our scratch buffer, we don't render the mesh. We do this here
@@ -204,13 +245,14 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
             // Our engine specific Texture is stored in the spAtlasRegion which was
             // assigned to the attachment on load. It represents the texture atlas
             // page that contains the image the mesh attachment is mapped to
-            texture = (Texture*)((spAtlasRegion*)mesh->rendererObject)->page->rendererObject;
+            texture = (Texture *) ((spAtlasRegion *) mesh->rendererObject)->page->rendererObject;
 
             // Computed the world vertices positions for the vertices that make up
             // the mesh attachment. This assumes the world transform of the
             // bone to which the slot (and hence attachment) is attached has been calculated
             // before rendering via spSkeleton_updateWorldTransform
-            spVertexAttachment_computeWorldVertices(SUPER(mesh), slot, 0, mesh->super.worldVerticesLength, worldVerticesPositions, 0, 2);
+            spVertexAttachment_computeWorldVertices(SUPER(mesh), slot, 0, mesh->super.worldVerticesLength,
+                                                    worldVerticesPositions, 0, 2);
 
             // Mesh attachments use an array of vertices, and an array of indices to define which
             // 3 vertices make up each triangle. We loop through all triangle indices
@@ -222,9 +264,9 @@ void drawSkeleton(spSkeleton* skeleton, Vector3 position) {
                           tintR, tintG, tintB, tintA, &vertexIndex);
             }
 
+            // Draw the mesh we created for the attachment
+            engine_drawMesh(vertices, 0, vertexIndex, texture, position, vertex_order);
         }
-        // Draw the mesh we created for the attachment
-        engine_drawMesh(vertices, texture, position, vertex_order);
     }
 }
 

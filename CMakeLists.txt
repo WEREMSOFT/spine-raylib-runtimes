@@ -17,6 +17,10 @@ endif()
 
 FILE(GLOB sources src/*)
 FILE(GLOB sources_spine lib/src/spine/*)
+
+add_executable(example2dOwl src/example_2d_owl.c ${sources_spine})
+target_include_directories(example2dOwl PRIVATE lib/include)
+
 add_executable(example2d src/example_2d.c ${sources_spine})
 target_include_directories(example2d PRIVATE lib/include)
 
