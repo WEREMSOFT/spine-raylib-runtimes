@@ -16,13 +16,22 @@ else()
 endif()
 
 FILE(GLOB sources src/*)
-FILE(GLOB sources_spine lib/src/spine/*)
+#You can use different spine versions, but not in the same project
+FILE(GLOB sources_spine_3_7 lib/spine/spine_3_7/src/spine/*)
+FILE(GLOB sources_spine_3_8 lib/spine/spine_3_8/src/spine/*)
 
-add_executable(example2dOwl src/example_2d_owl.c ${sources_spine})
+add_executable(example2dCat src/example_2d_cat.c ${sources_spine_3_7})
+target_include_directories(example2dCat PRIVATE lib/include)
+target_include_directories(example2dCat PRIVATE lib/spine/spine_3_7/include)
+
+add_executable(example2dOwl src/example_2d_owl.c ${sources_spine_3_8})
 target_include_directories(example2dOwl PRIVATE lib/include)
+target_include_directories(example2dOwl PRIVATE lib/spine/spine_3_8/include)
 
-add_executable(example2d src/example_2d.c ${sources_spine})
+add_executable(example2d src/example_2d.c ${sources_spine_3_8})
 target_include_directories(example2d PRIVATE lib/include)
+target_include_directories(example2d PRIVATE lib/spine/spine_3_8/include)
 
-add_executable(example3d src/example_3d.c ${sources_spine})
+add_executable(example3d src/example_3d.c ${sources_spine_3_8})
 target_include_directories(example3d PRIVATE lib/include)
+target_include_directories(example3d PRIVATE lib/spine/spine_3_8/include)
