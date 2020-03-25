@@ -30,6 +30,8 @@ This CMake-based project is an example of how to use the library on a 2D setting
 ### Example 2D Mesh Based Animation
 [Example 2D mesh](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_owl/example_2d_owl.html)
 
+<img src="./doc_images/example_2d_owl.png" width="300">
+
 ### Example 2D Mesh Based Animation spine 3.7
 [Example 2D 3.7](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat/example_2d_cat.html)
 
