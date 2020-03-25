@@ -30,7 +30,10 @@ This CMake-based project is an example of how to use the library on a 2D setting
 ### Example 2D Mesh Based Animation
 [Example 2D mesh](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_owl/example_2d_owl.html)
 
-<img src="./doc_images/example_2d_owl.png" width="300">
+### Example 2D Mesh Based Animation spine 3.7
+[Example 2D 3.7](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat/example_2d_cat.html)
+
+<img src="./doc_images/example_2d_cat.png" width="300">
 
 ### Example 3D
 [Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
@@ -43,7 +46,7 @@ For more examples regarding RayLib, a huge list of [examples](https://www.raylib
 
 ## Spine version
 
-spine-raylib works with data exported from Spine 3.8.x.
+spine-raylib works with data exported from Spine 3.8.x and Spine 3.7.x. Check the demos for how to prepare your project for different assets versions.
 
 ## Setup
 
