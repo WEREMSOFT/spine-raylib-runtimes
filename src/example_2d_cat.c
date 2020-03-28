@@ -14,6 +14,10 @@
 #include <stdio.h>
 #include <rlgl.h>
 
+#define RAYGUI_IMPLEMENTATION
+#define RAYGUI_SUPPORT_ICONS
+#include <raygui.h>
+
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
 #endif
@@ -29,12 +33,37 @@ spAnimationStateData* animationStateData;
 spAnimationState* animationState;
 Vector3 skeletonPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0};
 
+#define BUTTON_STARTING_POINT 100
+#define BUTTON_HEIGHT 30
+#define BUTTON_GAP 10
+
 void UpdateDrawFrame(void) {
     // Draw
     //----------------------------------------------------------------------------------
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
+
+    // GUI
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "carrying"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "caring", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + BUTTON_HEIGHT + BUTTON_GAP, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "dead"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "dead", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 2, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "hit"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "hit", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 3, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "idle"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "idle", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 4, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "run"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "run", 1);
+    }
 
     spAnimationState_update(animationState, GetFrameTime());
     spAnimationState_apply(animationState, skeleton);

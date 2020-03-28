@@ -13,6 +13,9 @@
 #include "spine-raylib.h"
 #include <stdio.h>
 #include <rlgl.h>
+#define RAYGUI_IMPLEMENTATION
+#define RAYGUI_SUPPORT_ICONS
+#include <raygui.h>
 
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
@@ -20,6 +23,9 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
+#define BUTTON_STARTING_POINT 100
+#define BUTTON_HEIGHT 30
+#define BUTTON_GAP 10
 
 spAtlas* atlas = NULL;
 spSkeletonJson* json;
@@ -35,6 +41,31 @@ void UpdateDrawFrame(void) {
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
+
+    // GUI
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "blink"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "blink", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + BUTTON_HEIGHT + BUTTON_GAP, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "idle"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "idle", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 2, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "left"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "left", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 3, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "up"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "up", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 4, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "right"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "right", 1);
+    }
+
+    if (GuiButton((Rectangle) {25, BUTTON_STARTING_POINT + (BUTTON_HEIGHT + BUTTON_GAP) * 4, 125, BUTTON_HEIGHT}, GuiIconText(RICON_PLAYER_PLAY, "down"))) {
+        spAnimationState_setAnimationByName(animationState, 0, "down", 1);
+    }
 
     spAnimationState_update(animationState, GetFrameTime());
     spAnimationState_apply(animationState, skeleton);
