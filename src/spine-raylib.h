@@ -136,6 +136,7 @@ void engine_drawMesh(Vertex *vertices, int start, int count, Texture *texture, V
 Texture2D *texture_2d_create(char *path) {
     tm_textures[texture_index] = LoadTexture(path);
     Texture2D *t = &tm_textures[texture_index];
+    SetTextureFilter(*t, FILTER_BILINEAR);
     texture_index++;
     return t;
 }
