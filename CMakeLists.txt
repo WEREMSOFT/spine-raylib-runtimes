@@ -32,6 +32,10 @@ add_executable(example2d src/example_2d.c ${sources_spine_3_8})
 target_include_directories(example2d PRIVATE lib/include)
 target_include_directories(example2d PRIVATE lib/spine/spine_3_8/include)
 
+add_executable(example2dCatWitch src/example_2d_cat_witch.c ${sources_spine_3_7})
+target_include_directories(example2dCatWitch PRIVATE lib/include)
+target_include_directories(example2dCatWitch PRIVATE lib/spine/spine_3_7/include)
+
 add_executable(example3d src/example_3d.c ${sources_spine_3_8})
 target_include_directories(example3d PRIVATE lib/include)
 target_include_directories(example3d PRIVATE lib/spine/spine_3_8/include)

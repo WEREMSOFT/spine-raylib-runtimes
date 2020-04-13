@@ -1,0 +1,258 @@
+
+cat.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+APRON buttom
+  rotate: true
+  xy: 610, 621
+  size: 79, 74
+  orig: 79, 74
+  offset: 0, 0
+  index: -1
+APRON top
+  rotate: true
+  xy: 367, 379
+  size: 214, 160
+  orig: 214, 160
+  offset: 0, 0
+  index: -1
+ARM L
+  rotate: true
+  xy: 1096, 1368
+  size: 182, 218
+  orig: 182, 218
+  offset: 0, 0
+  index: -1
+ARM R
+  rotate: false
+  xy: 857, 1231
+  size: 212, 129
+  orig: 212, 129
+  offset: 0, 0
+  index: -1
+BOOK
+  rotate: false
+  xy: 1610, 1775
+  size: 371, 234
+  orig: 371, 234
+  offset: 0, 0
+  index: -1
+BOOK 2 animate
+  rotate: false
+  xy: 857, 1127
+  size: 222, 102
+  orig: 222, 102
+  offset: 0, 0
+  index: -1
+BOOK 3 animate
+  rotate: false
+  xy: 498, 973
+  size: 166, 183
+  orig: 166, 183
+  offset: 0, 0
+  index: -1
+BOOK LIGHT
+  rotate: false
+  xy: 2, 1439
+  size: 569, 570
+  orig: 569, 570
+  offset: 0, 0
+  index: -1
+BOOKMARK blue
+  rotate: false
+  xy: 1983, 1951
+  size: 46, 58
+  orig: 46, 58
+  offset: 0, 0
+  index: -1
+BOOKMARK long
+  rotate: false
+  xy: 686, 724
+  size: 90, 130
+  orig: 90, 130
+  offset: 0, 0
+  index: -1
+BOOKMARK short
+  rotate: false
+  xy: 1401, 1433
+  size: 80, 121
+  orig: 80, 121
+  offset: 0, 0
+  index: -1
+BOW
+  rotate: true
+  xy: 1316, 1413
+  size: 137, 83
+  orig: 137, 83
+  offset: 0, 0
+  index: -1
+CAPE
+  rotate: false
+  xy: 1120, 1725
+  size: 488, 284
+  orig: 488, 284
+  offset: 0, 0
+  index: -1
+CAPE L
+  rotate: false
+  xy: 679, 856
+  size: 149, 125
+  orig: 149, 125
+  offset: 0, 0
+  index: -1
+CAPE R
+  rotate: false
+  xy: 367, 274
+  size: 175, 103
+  orig: 175, 103
+  offset: 0, 0
+  index: -1
+DRESS
+  rotate: false
+  xy: 573, 1584
+  size: 545, 425
+  orig: 545, 425
+  offset: 0, 0
+  index: -1
+EARS L
+  rotate: false
+  xy: 713, 1146
+  size: 142, 196
+  orig: 142, 196
+  offset: 0, 0
+  index: -1
+EARS R
+  rotate: true
+  xy: 498, 845
+  size: 126, 179
+  orig: 126, 179
+  offset: 0, 0
+  index: -1
+EYES
+  rotate: true
+  xy: 502, 624
+  size: 219, 106
+  orig: 219, 106
+  offset: 0, 0
+  index: -1
+EYES LIGHT
+  rotate: false
+  xy: 1610, 1759
+  size: 131, 14
+  orig: 131, 14
+  offset: 0, 0
+  index: -1
+HAT
+  rotate: true
+  xy: 2, 818
+  size: 619, 494
+  orig: 619, 494
+  offset: 0, 0
+  index: -1
+HEAD
+  rotate: false
+  xy: 2, 2
+  size: 308, 275
+  orig: 308, 275
+  offset: 0, 0
+  index: -1
+LEG L
+  rotate: true
+  xy: 1120, 1552
+  size: 171, 252
+  orig: 171, 252
+  offset: 0, 0
+  index: -1
+LEG R
+  rotate: true
+  xy: 1374, 1556
+  size: 167, 227
+  orig: 167, 227
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: false
+  xy: 830, 905
+  size: 78, 104
+  orig: 78, 104
+  offset: 0, 0
+  index: -1
+PAW R
+  rotate: false
+  xy: 686, 636
+  size: 87, 86
+  orig: 87, 86
+  offset: 0, 0
+  index: -1
+Ribbon L
+  rotate: false
+  xy: 1483, 1444
+  size: 88, 110
+  orig: 88, 110
+  offset: 0, 0
+  index: -1
+Ribbon R
+  rotate: true
+  xy: 610, 702
+  size: 141, 74
+  orig: 141, 74
+  offset: 0, 0
+  index: -1
+TAIL
+  rotate: false
+  xy: 573, 1344
+  size: 275, 238
+  orig: 275, 238
+  offset: 0, 0
+  index: -1
+blue
+  rotate: false
+  xy: 975, 995
+  size: 98, 130
+  orig: 98, 130
+  offset: 0, 0
+  index: -1
+blue shadow
+  rotate: false
+  xy: 850, 1362
+  size: 244, 220
+  orig: 244, 220
+  offset: 0, 0
+  index: -1
+light
+  rotate: false
+  xy: 666, 983
+  size: 160, 161
+  orig: 160, 161
+  offset: 0, 0
+  index: -1
+pink
+  rotate: false
+  xy: 828, 1011
+  size: 145, 114
+  orig: 145, 114
+  offset: 0, 0
+  index: -1
+pink shadow
+  rotate: false
+  xy: 498, 1158
+  size: 213, 184
+  orig: 213, 184
+  offset: 0, 0
+  index: -1
+skirt under
+  rotate: true
+  xy: 2, 279
+  size: 537, 363
+  orig: 537, 363
+  offset: 0, 0
+  index: -1
+wand
+  rotate: false
+  xy: 367, 595
+  size: 133, 221
+  orig: 133, 221
+  offset: 0, 0
+  index: -1
