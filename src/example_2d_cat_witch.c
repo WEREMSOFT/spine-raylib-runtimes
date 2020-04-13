@@ -27,7 +27,7 @@ spSkeletonData* skeletonData;
 spSkeleton* skeleton;
 spAnimationStateData* animationStateData;
 spAnimationState* animationState;
-Vector3 skeletonPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0};
+Vector3 skeletonPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0.95, 0};
 
 #define PETROL CLITERAL(Color){ 0, 122, 163, 255 }   // My own White (raylib logo)
 
@@ -71,8 +71,8 @@ int main()
 
     spBone_setYDown(true);
     skeleton = spSkeleton_create(skeletonData);
-    skeleton->scaleX = 0.22;
-    skeleton->scaleY = 0.22;
+    skeleton->scaleX = 0.2;
+    skeleton->scaleY = 0.2;
 
     // Create the spAnimationStateData
     animationStateData = spAnimationStateData_create(skeletonData);

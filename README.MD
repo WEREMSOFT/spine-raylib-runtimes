@@ -27,6 +27,11 @@ This CMake-based project is an example of how to use the library on a 2D setting
 
 <img src="./doc_images/example_2d.png" width="300">
 
+### Example 2D Witch
+[Example 2D Witch](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat_witch/example_2d_cat_witch.html)
+
+<img src="./doc_images/example_2d_cat_witch.png" width="300">
+
 ### Example 2D Mesh Based Animation
 [Example 2D mesh](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_owl/example_2d_owl.html)
 
