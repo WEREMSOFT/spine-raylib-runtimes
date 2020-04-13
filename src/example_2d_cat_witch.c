@@ -71,8 +71,8 @@ int main()
 
     spBone_setYDown(true);
     skeleton = spSkeleton_create(skeletonData);
-    skeleton->scaleX = 0.25;
-    skeleton->scaleY = 0.25;
+    skeleton->scaleX = 0.22;
+    skeleton->scaleY = 0.22;
 
     // Create the spAnimationStateData
     animationStateData = spAnimationStateData_create(skeletonData);
@@ -81,8 +81,8 @@ int main()
     int track = 0;
     int loop = 1;
     float delay = 0;
-    spAnimationState_addAnimationByName(animationState, track, "magick", loop, delay);
-    spAnimationState_addAnimationByName(animationState, 0, "magick", 1, 0);
+    spAnimationState_addAnimationByName(animationState, track, "animation3", loop, delay);
+    spAnimationState_addAnimationByName(animationState, 0, "animation3", 1, 0);
     spAnimationState_update(animationState,.0f);
     spAnimationState_apply(animationState, skeleton);
     spSkeleton_updateWorldTransform(skeleton);

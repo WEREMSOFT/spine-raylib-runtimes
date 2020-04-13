@@ -1,258 +1,265 @@
 
 cat.png
-size: 2048,2048
+size: 2048,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 APRON buttom
-  rotate: true
-  xy: 610, 621
-  size: 79, 74
-  orig: 79, 74
+  rotate: false
+  xy: 756, 2
+  size: 31, 30
+  orig: 31, 30
   offset: 0, 0
   index: -1
 APRON top
-  rotate: true
-  xy: 367, 379
-  size: 214, 160
-  orig: 214, 160
+  rotate: false
+  xy: 483, 18
+  size: 85, 64
+  orig: 85, 64
   offset: 0, 0
   index: -1
 ARM L
   rotate: true
-  xy: 1096, 1368
-  size: 182, 218
-  orig: 182, 218
+  xy: 1799, 181
+  size: 73, 87
+  orig: 73, 87
   offset: 0, 0
   index: -1
 ARM R
   rotate: false
-  xy: 857, 1231
-  size: 212, 129
-  orig: 212, 129
+  xy: 322, 4
+  size: 85, 51
+  orig: 85, 51
   offset: 0, 0
   index: -1
 BOOK
   rotate: false
-  xy: 1610, 1775
-  size: 371, 234
-  orig: 371, 234
+  xy: 1116, 161
+  size: 148, 93
+  orig: 148, 93
   offset: 0, 0
   index: -1
 BOOK 2 animate
   rotate: false
-  xy: 857, 1127
-  size: 222, 102
-  orig: 222, 102
+  xy: 919, 97
+  size: 89, 41
+  orig: 89, 41
   offset: 0, 0
   index: -1
 BOOK 3 animate
   rotate: false
-  xy: 498, 973
-  size: 166, 183
-  orig: 166, 183
+  xy: 1975, 181
+  size: 66, 73
+  orig: 66, 73
   offset: 0, 0
   index: -1
 BOOK LIGHT
   rotate: false
-  xy: 2, 1439
-  size: 569, 570
-  orig: 569, 570
+  xy: 2, 26
+  size: 228, 228
+  orig: 228, 228
   offset: 0, 0
   index: -1
 BOOKMARK blue
-  rotate: false
-  xy: 1983, 1951
-  size: 46, 58
-  orig: 46, 58
+  rotate: true
+  xy: 1603, 166
+  size: 18, 23
+  orig: 18, 23
   offset: 0, 0
   index: -1
 BOOKMARK long
-  rotate: false
-  xy: 686, 724
-  size: 90, 130
-  orig: 90, 130
+  rotate: true
+  xy: 1173, 123
+  size: 36, 52
+  orig: 36, 52
   offset: 0, 0
   index: -1
 BOOKMARK short
-  rotate: false
-  xy: 1401, 1433
-  size: 80, 121
-  orig: 80, 121
+  rotate: true
+  xy: 1264, 110
+  size: 32, 48
+  orig: 32, 48
   offset: 0, 0
   index: -1
 BOW
-  rotate: true
-  xy: 1316, 1413
-  size: 137, 83
-  orig: 137, 83
+  rotate: false
+  xy: 1116, 126
+  size: 55, 33
+  orig: 55, 33
   offset: 0, 0
   index: -1
 CAPE
   rotate: false
-  xy: 1120, 1725
-  size: 488, 284
-  orig: 488, 284
+  xy: 919, 140
+  size: 195, 114
+  orig: 195, 114
   offset: 0, 0
   index: -1
 CAPE L
-  rotate: false
-  xy: 679, 856
-  size: 149, 125
-  orig: 149, 125
+  rotate: true
+  xy: 650, 23
+  size: 59, 50
+  orig: 59, 50
   offset: 0, 0
   index: -1
 CAPE R
   rotate: false
-  xy: 367, 274
-  size: 175, 103
-  orig: 175, 103
+  xy: 768, 66
+  size: 70, 41
+  orig: 70, 41
   offset: 0, 0
   index: -1
 DRESS
   rotate: false
-  xy: 573, 1584
-  size: 545, 425
-  orig: 545, 425
+  xy: 482, 84
+  size: 218, 170
+  orig: 218, 170
   offset: 0, 0
   index: -1
 EARS L
-  rotate: false
-  xy: 713, 1146
-  size: 142, 196
-  orig: 142, 196
+  rotate: true
+  xy: 570, 25
+  size: 57, 78
+  orig: 57, 78
   offset: 0, 0
   index: -1
 EARS R
   rotate: true
-  xy: 498, 845
-  size: 126, 179
-  orig: 126, 179
+  xy: 409, 5
+  size: 50, 72
+  orig: 50, 72
   offset: 0, 0
   index: -1
 EYES
-  rotate: true
-  xy: 502, 624
-  size: 219, 106
-  orig: 219, 106
+  rotate: false
+  xy: 1010, 96
+  size: 87, 42
+  orig: 87, 42
   offset: 0, 0
   index: -1
 EYES LIGHT
   rotate: false
-  xy: 1610, 1759
-  size: 131, 14
-  orig: 131, 14
+  xy: 2, 18
+  size: 52, 6
+  orig: 52, 6
   offset: 0, 0
   index: -1
 HAT
-  rotate: true
-  xy: 2, 818
-  size: 619, 494
-  orig: 619, 494
+  rotate: false
+  xy: 232, 57
+  size: 248, 197
+  orig: 248, 197
   offset: 0, 0
   index: -1
 HEAD
   rotate: false
-  xy: 2, 2
-  size: 308, 275
-  orig: 308, 275
+  xy: 1266, 144
+  size: 123, 110
+  orig: 123, 110
   offset: 0, 0
   index: -1
 LEG L
   rotate: true
-  xy: 1120, 1552
-  size: 171, 252
-  orig: 171, 252
+  xy: 1603, 186
+  size: 68, 101
+  orig: 68, 101
   offset: 0, 0
   index: -1
 LEG R
   rotate: true
-  xy: 1374, 1556
-  size: 167, 227
-  orig: 167, 227
+  xy: 1706, 187
+  size: 67, 91
+  orig: 67, 91
   offset: 0, 0
   index: -1
 Layer 1
-  rotate: false
-  xy: 830, 905
-  size: 78, 104
-  orig: 78, 104
+  rotate: true
+  xy: 1314, 111
+  size: 31, 41
+  orig: 31, 41
   offset: 0, 0
   index: -1
 PAW R
   rotate: false
-  xy: 686, 636
-  size: 87, 86
-  orig: 87, 86
+  xy: 1357, 108
+  size: 35, 34
+  orig: 35, 34
   offset: 0, 0
   index: -1
 Ribbon L
   rotate: false
-  xy: 1483, 1444
-  size: 88, 110
-  orig: 88, 110
+  xy: 1227, 115
+  size: 35, 44
+  orig: 35, 44
   offset: 0, 0
   index: -1
 Ribbon R
-  rotate: true
-  xy: 610, 702
-  size: 141, 74
-  orig: 141, 74
+  rotate: false
+  xy: 768, 34
+  size: 56, 30
+  orig: 56, 30
   offset: 0, 0
   index: -1
 TAIL
   rotate: false
-  xy: 573, 1344
-  size: 275, 238
-  orig: 275, 238
+  xy: 1391, 159
+  size: 110, 95
+  orig: 110, 95
   offset: 0, 0
   index: -1
 blue
-  rotate: false
-  xy: 975, 995
-  size: 98, 130
-  orig: 98, 130
+  rotate: true
+  xy: 702, 2
+  size: 39, 52
+  orig: 39, 52
   offset: 0, 0
   index: -1
 blue shadow
   rotate: false
-  xy: 850, 1362
-  size: 244, 220
-  orig: 244, 220
+  xy: 1503, 166
+  size: 98, 88
+  orig: 98, 88
   offset: 0, 0
   index: -1
 light
   rotate: false
-  xy: 666, 983
-  size: 160, 161
-  orig: 160, 161
+  xy: 702, 43
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+petals
+  rotate: false
+  xy: 1394, 121
+  size: 34, 36
+  orig: 34, 36
   offset: 0, 0
   index: -1
 pink
   rotate: false
-  xy: 828, 1011
-  size: 145, 114
-  orig: 145, 114
+  xy: 840, 62
+  size: 58, 45
+  orig: 58, 45
   offset: 0, 0
   index: -1
 pink shadow
   rotate: false
-  xy: 498, 1158
-  size: 213, 184
-  orig: 213, 184
+  xy: 1888, 181
+  size: 85, 73
+  orig: 85, 73
   offset: 0, 0
   index: -1
 skirt under
-  rotate: true
-  xy: 2, 279
-  size: 537, 363
-  orig: 537, 363
+  rotate: false
+  xy: 702, 109
+  size: 215, 145
+  orig: 215, 145
   offset: 0, 0
   index: -1
 wand
-  rotate: false
-  xy: 367, 595
-  size: 133, 221
-  orig: 133, 221
+  rotate: true
+  xy: 232, 2
+  size: 53, 88
+  orig: 53, 88
   offset: 0, 0
   index: -1
