@@ -9,6 +9,20 @@ One of the most amazing features of [Raylib](https://www.raylib.com/), besides t
 ## Known Bugs
 I think it's fair to let you know the problems early. So here it goes: The 3D part is buggy. If you want to use it in 2D it will work like a charm. But you are going to have problems with alpha if you use it in 3D. I think I can fix it somehow, but I need to learn more about how 3D works. So there you have it. Do your own research and let me know if you make it work!. A PR will be a nice thing to have. Thanks in advance. 
 
+## Setting the spine version for build
+You can set the spine version when building. The following commands are mandatory to properly build the examples:
+
+```
+$make html/example_2d.html SPINE_VERSION=_3_8
+$make html/example_3d.html SPINE_VERSION=_3_8
+```
+3.7 is the default version, so not necesary to put it. But will not harm.
+```
+$make html/example_2d_cat.html SPINE_VERSION=_3_7
+$make html/example_2d_cat_witch.html SPINE_VERSION=_3_7
+$make html/example_2d_cat_owl.html SPINE_VERSION=_3_7
+```
+
 ## Licensing
 You are welcome to evaluate the Spine Runtimes and the examples we provide in this repository free of charge.
 

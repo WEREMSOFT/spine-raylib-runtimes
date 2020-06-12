@@ -75,10 +75,10 @@ int main()
     SetCameraMode(camera, CAMERA_ORBITAL);
 
     // Init spine
-    atlas = spAtlas_createFromFile("assets/dragon/NewDragon.atlas", 0);
+    atlas = spAtlas_createFromFile("assets/example_3d/NewDragon.atlas", 0);
     json = spSkeletonJson_create(atlas);
 
-    skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/dragon/NewDragon.json");
+    skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/example_3d/NewDragon.json");
 
     if (!skeletonData) {
         printf("%s\n", json->error);
