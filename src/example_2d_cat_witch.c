@@ -61,7 +61,7 @@ int main()
     atlas = spAtlas_createFromFile("assets/cat/cat.atlas", 0);
     json = spSkeletonJson_create(atlas);
 
-    skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/cat/cat.json");
+    skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/example_2d_cat_witch/cat.json");
 
     if (!skeletonData) {
         printf("%s\n", json->error);
