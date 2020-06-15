@@ -44,11 +44,9 @@ BIN_EXTENSION = bin
 
 
 # Vars for emscripten build
-RAYLIB_PATH := /Users/pabloweremczuk/Documents/Proyectos/c/raylib
-EMSC_CFLAGS := -O2 -s -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0 -g4 -s USE_GLFW=3 -s -s TOTAL_MEMORY=16777216 -v -D PLATFORM_WEB
+EMSC_CFLAGS := -O2 -s -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0 -g4 -s USE_GLFW=3 -s -s TOTAL_MEMORY=33554432 -v -D PLATFORM_WEB
 EMSC_CC := emcc
 EMSC_STATIC_LIBS_D := $(LIBS_D)static/libraylib.bc
-# EMSC_STATIC_LIBS_D := $(LIBS_D)static/libraylib.bc
 
 # Call to compilers / linkers
 CC_COMMAND := $(CC) $(CFLAGS) $(INCLUDE_D) $(STATIC_LIBS_D)
@@ -71,18 +69,18 @@ endif
 
 .PHONY: test run_% print_information create_folders
 
-all: print_information create_folders bin/assets bin/example_2d.bin bin/example_3d.bin bin/example_2d_owl.bin bin/example_2d_cat.bin bin/example_2d_cat_witch.bin
+all: print_information create_folders bin/assets bin/example_2d.bin bin/example_3d.bin bin/example_2d_owl.bin bin/example_2d_cat.bin bin/example_2d_cat_witch.bin html/example_2d.html html/example_3d.html html/example_2d_owl.html html/example_2d_cat.html html/example_2d_cat_witch.html
 
 bin/assets: assets
 	cp -r assets bin
 
-bin/example_2d_cat.bin: src/example_2d_cat.c
+$(BLD_D)/example_2d_cat.$(BIN_EXTENSION): $(SRC_D)/example_2d_cat.c
 	@echo "### Building $(@) START ###"
 	$(CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(LINK_LIBS)
 	@echo "### End ###"
 	@echo ""
 
-bin/example_2d_cat_witch.bin: src/example_2d_cat_witch.c
+$(BLD_D)/example_2d_cat_witch.$(BIN_EXTENSION): $(SRC_D)/example_2d_cat_witch.c
 	@echo "### Building $(@) START ###"
 	$(CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(LINK_LIBS)
 	@echo "### End ###"
@@ -100,8 +98,15 @@ $(BLD_D)%.$(BIN_EXTENSION): $(SRC_D)%.c
 	@echo "### End ###"
 	@echo ""
 
+$(HTML_D)example_2d_cat.html: $(SRC_D)example_2d_cat.c
+	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
+
+$(HTML_D)example_2d_cat_witch.html: $(SRC_D)example_2d_cat_witch.c
+	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
+
+
 $(HTML_D)%.html: $(SRC_D)%.c
-	$(EMSC_CC_COMMAND) -o $@ $^ $(SPINE_SOURCES) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
+	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_8) -o $@ $^ $(SPINE_SOURCES_3_8) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
 
 print_information:
 	@echo "Dettected OS: $(DETTECTED_OS)"
