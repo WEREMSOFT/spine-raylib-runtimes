@@ -24,16 +24,24 @@ TEST_BLD_D := $(TEST_SRC_D)bin/
 LIBS_D := lib/
 HTML_D := html/
 ASM_D := asm/
-SPINE_VERSION ?= _3_7
-SPINE_SRC_D := $(LIBS_D)spine/spine$(SPINE_VERSION)/src/spine/
-SPINE_SOURCES := $(wildcard $(SPINE_SRC_D)*.c)
 
-INCLUDE_D := -I$(LIBS_D)include/ -I$(LIBS_D)spine/spine$(SPINE_VERSION)/include
+SPINE_VERSION_3_8 := _3_8
+SPINE_SRC_D_3_8 := $(LIBS_D)spine/spine$(SPINE_VERSION_3_8)/src/spine/
+SPINE_SOURCES_3_8 := $(wildcard $(SPINE_SRC_D_3_8)*.c)
+SPINE_INCLUDE_3_8 := -I$(LIBS_D)spine/spine$(SPINE_VERSION_3_8)/include
+
+SPINE_VERSION_3_7 := _3_7
+SPINE_SRC_D_3_7 := $(LIBS_D)spine/spine$(SPINE_VERSION_3_7)/src/spine/
+SPINE_SOURCES_3_7 := $(wildcard $(SPINE_SRC_D_3_7)*.c)
+SPINE_INCLUDE_3_7 := -I$(LIBS_D)spine/spine$(SPINE_VERSION_3_7)/include
+
+INCLUDE_D := -I$(LIBS_D)include/
 STATIC_LIBS_D := -L$(LIBS_D)static/
 CFLAGS := -O0 -Wpedantic -g -Wall -std=c99 -g3 -DOS_$(DETTECTED_OS) 
 DEBUGGER := kdbg # Other options: cgdb gdb
 MK_DIR:= mkdir -p
 BIN_EXTENSION = bin
+
 
 # Vars for emscripten build
 RAYLIB_PATH := /Users/pabloweremczuk/Documents/Proyectos/c/raylib
@@ -41,7 +49,6 @@ EMSC_CFLAGS := -O2 -s -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -s DI
 EMSC_CC := emcc
 EMSC_STATIC_LIBS_D := $(LIBS_D)static/libraylib.bc
 # EMSC_STATIC_LIBS_D := $(LIBS_D)static/libraylib.bc
-
 
 # Call to compilers / linkers
 CC_COMMAND := $(CC) $(CFLAGS) $(INCLUDE_D) $(STATIC_LIBS_D)
@@ -62,12 +69,24 @@ endif
 # Build Targets
 #//////////////
 
-.PHONY: test run_% debug_optimized debug_unoptimized print_information create_folder_structure run_html_u run_html_o run_performance_test init_project
+.PHONY: test run_% print_information create_folders
 
-all: print_information $(BLD_D)main.$(BIN_EXTENSION)
+all: print_information create_folders bin/assets bin/example_2d.bin bin/example_3d.bin bin/example_2d_owl.bin bin/example_2d_cat.bin bin/example_2d_cat_witch.bin
 
-$(OBJ_D)%.o: $(SRC_D)%.c
-	$(CC_COMMAND) -o $(OBJ_D)$@ $^ $(LINK_LIBS)
+bin/assets: assets
+	cp -r assets bin
+
+bin/example_2d_cat.bin: src/example_2d_cat.c
+	@echo "### Building $(@) START ###"
+	$(CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(LINK_LIBS)
+	@echo "### End ###"
+	@echo ""
+
+bin/example_2d_cat_witch.bin: src/example_2d_cat_witch.c
+	@echo "### Building $(@) START ###"
+	$(CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(LINK_LIBS)
+	@echo "### End ###"
+	@echo ""
 
 $(TEST_BLD_D)%.spec.$(BIN_EXTENSION): $(TEST_SRC_D)%.spec.c
 	@echo "### Building tests for $(@) START ###"
@@ -76,15 +95,12 @@ $(TEST_BLD_D)%.spec.$(BIN_EXTENSION): $(TEST_SRC_D)%.spec.c
 	@echo ""
 
 $(BLD_D)%.$(BIN_EXTENSION): $(SRC_D)%.c
-	@echo "### Building tests for $(@) START ###"
-	$(CC_COMMAND) -o $@ $^ $(SPINE_SOURCES) $(LINK_LIBS)
+	@echo "### Building $(@) START ###"
+	$(CC_COMMAND) $(SPINE_INCLUDE_3_8) -o $@ $^ $(SPINE_SOURCES_3_8) $(LINK_LIBS)
 	@echo "### End ###"
 	@echo ""
 
 $(HTML_D)%.html: $(SRC_D)%.c
-	@echo $(EMSC_CC_COMMAND) -o $@ $^ $(SPINE_SOURCES) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
-
-nothing:
 	$(EMSC_CC_COMMAND) -o $@ $^ $(SPINE_SOURCES) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
 
 print_information:
@@ -99,9 +115,6 @@ create_folders:
 	$(MK_DIR) $(HTML_D)
 	$(MK_DIR) $(TEST_BLD_D)
 	$(MK_DIR) $(ASM_D)
-	
-init_project: create_folders
-	touch ./src/main.c
 
 clean:
 	rm -rf $(BLD_D)*
@@ -109,12 +122,6 @@ clean:
 	rm -rf $(OBJ_D)*
 	rm -rf $(TEST_BLD_D)*
 	rm -rf $(ASM_D)*
-
-run_perf_%.$(BIN_EXTENSION): $(BLD_D)%.$(BIN_EXTENSION)
-	perf stat -e task-clock,cycles,instructions,cache-references,cache-misses $^
-	
-debug_%: $(BLD_D)%.$(BIN_EXTENSION)
-	$(DEBUGGER) $^
 
 run_%: $(BLD_D)%.$(BIN_EXTENSION)
 	$^

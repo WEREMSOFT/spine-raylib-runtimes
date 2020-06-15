@@ -58,7 +58,7 @@ int main()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib spine example - basic window");
 
     // Init spine
-    atlas = spAtlas_createFromFile("assets/cat/cat.atlas", 0);
+    atlas = spAtlas_createFromFile("assets/example_2d_cat_witch/cat.atlas", 0);
     json = spSkeletonJson_create(atlas);
 
     skeletonData = spSkeletonJson_readSkeletonDataFile(json, "assets/example_2d_cat_witch/cat.json");
