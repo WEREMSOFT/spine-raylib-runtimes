@@ -69,10 +69,16 @@ endif
 
 .PHONY: test run_% print_information create_folders
 
-all: print_information create_folders bin/assets bin/example_2d.bin bin/example_3d.bin bin/example_2d_owl.bin bin/example_2d_cat.bin bin/example_2d_cat_witch.bin html/example_2d.html html/example_3d.html html/example_2d_owl.html html/example_2d_cat.html html/example_2d_cat_witch.html
+all: print_information create_folders bin/assets bin/example_2d.bin bin/example_3d.bin bin/example_2d_owl.bin bin/example_2d_cat.bin bin/example_2d_cat_potion.bin bin/example_2d_cat_witch.bin html/example_2d.html html/example_3d.html html/example_2d_owl.html html/example_2d_cat.html html/example_2d_cat_witch.html html/example_2d_cat_potion.html
 
 bin/assets: assets
 	cp -r assets bin
+
+$(BLD_D)example_2d_cat_potion.$(BIN_EXTENSION): $(SRC_D)/example_2d_cat_potion.c
+	@echo "### Building $(@) START ###"
+	$(CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(LINK_LIBS)
+	@echo "### End ###"
+	@echo ""
 
 $(BLD_D)/example_2d_cat.$(BIN_EXTENSION): $(SRC_D)/example_2d_cat.c
 	@echo "### Building $(@) START ###"
@@ -102,6 +108,9 @@ $(HTML_D)example_2d_cat.html: $(SRC_D)example_2d_cat.c
 	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
 
 $(HTML_D)example_2d_cat_witch.html: $(SRC_D)example_2d_cat_witch.c
+	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
+
+$(HTML_D)example_2d_cat_potion.html: $(SRC_D)example_2d_cat_potion.c
 	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
 
 

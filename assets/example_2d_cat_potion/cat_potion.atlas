@@ -1,0 +1,335 @@
+
+cat_potion.png
+size: 1256,309
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BG
+  rotate: true
+  xy: 2, 7
+  size: 300, 339
+  orig: 300, 339
+  offset: 0, 0
+  index: -1
+EYES
+  rotate: false
+  xy: 897, 34
+  size: 75, 36
+  orig: 75, 36
+  offset: 0, 0
+  index: -1
+EYES back
+  rotate: false
+  xy: 1102, 22
+  size: 75, 36
+  orig: 75, 36
+  offset: 0, 0
+  index: -1
+book
+  rotate: true
+  xy: 1198, 112
+  size: 86, 56
+  orig: 86, 56
+  offset: 0, 0
+  index: -1
+bookmark
+  rotate: false
+  xy: 1229, 215
+  size: 12, 31
+  orig: 12, 31
+  offset: 0, 0
+  index: -1
+brows
+  rotate: true
+  xy: 590, 16
+  size: 52, 17
+  orig: 52, 17
+  offset: 0, 0
+  index: -1
+bubble1
+  rotate: false
+  xy: 1067, 183
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+bubble2
+  rotate: false
+  xy: 1229, 200
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: -1
+bubble3
+  rotate: false
+  xy: 1164, 2
+  size: 6, 4
+  orig: 6, 4
+  offset: 0, 0
+  index: -1
+coldrun
+  rotate: false
+  xy: 343, 7
+  size: 128, 172
+  orig: 128, 172
+  offset: 0, 0
+  index: -1
+coldrun TOP
+  rotate: true
+  xy: 893, 179
+  size: 128, 172
+  orig: 128, 172
+  offset: 0, 0
+  index: -1
+coldrun blue light
+  rotate: true
+  xy: 719, 179
+  size: 128, 172
+  orig: 128, 172
+  offset: 0, 0
+  index: -1
+coldrun light
+  rotate: true
+  xy: 545, 179
+  size: 128, 172
+  orig: 128, 172
+  offset: 0, 0
+  index: -1
+color light correction
+  rotate: true
+  xy: 554, 4
+  size: 22, 34
+  orig: 22, 34
+  offset: 0, 0
+  index: -1
+dress
+  rotate: false
+  xy: 635, 57
+  size: 129, 120
+  orig: 129, 120
+  offset: 0, 0
+  index: -1
+dress LIGHT
+  rotate: false
+  xy: 766, 57
+  size: 129, 120
+  orig: 129, 120
+  offset: 0, 0
+  index: -1
+fire1
+  rotate: true
+  xy: 609, 9
+  size: 46, 64
+  orig: 46, 64
+  offset: 0, 0
+  index: -1
+fire2
+  rotate: true
+  xy: 675, 9
+  size: 46, 63
+  orig: 46, 63
+  offset: 0, 0
+  index: -1
+fire3
+  rotate: true
+  xy: 740, 9
+  size: 46, 62
+  orig: 46, 62
+  offset: 0, 0
+  index: -1
+ghost
+  rotate: true
+  xy: 1093, 60
+  size: 54, 85
+  orig: 54, 85
+  offset: 0, 0
+  index: -1
+hat
+  rotate: true
+  xy: 1021, 62
+  size: 115, 70
+  orig: 115, 70
+  offset: 0, 0
+  index: -1
+hat shadow
+  rotate: false
+  xy: 473, 28
+  size: 115, 40
+  orig: 115, 40
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 1067, 200
+  size: 160, 107
+  orig: 160, 107
+  offset: 0, 0
+  index: -1
+head LIGHT
+  rotate: false
+  xy: 473, 70
+  size: 160, 107
+  orig: 160, 107
+  offset: 0, 0
+  index: -1
+head jaw
+  rotate: true
+  xy: 1226, 2
+  size: 18, 15
+  orig: 18, 15
+  offset: 0, 0
+  index: -1
+head nose
+  rotate: false
+  xy: 804, 33
+  size: 28, 22
+  orig: 28, 22
+  offset: 0, 0
+  index: -1
+lashes
+  rotate: false
+  xy: 473, 2
+  size: 79, 24
+  orig: 79, 24
+  offset: 0, 0
+  index: -1
+light under coldrun
+  rotate: false
+  xy: 897, 72
+  size: 122, 105
+  orig: 122, 105
+  offset: 0, 0
+  index: -1
+potion001
+  rotate: true
+  xy: 590, 2
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+potion002
+  rotate: true
+  xy: 804, 12
+  size: 9, 14
+  orig: 9, 14
+  offset: 0, 0
+  index: -1
+potion003
+  rotate: true
+  xy: 834, 36
+  size: 9, 20
+  orig: 9, 20
+  offset: 0, 0
+  index: -1
+potion004
+  rotate: true
+  xy: 804, 23
+  size: 8, 27
+  orig: 8, 27
+  offset: 0, 0
+  index: -1
+potion005
+  rotate: true
+  xy: 834, 47
+  size: 8, 34
+  orig: 8, 34
+  offset: 0, 0
+  index: -1
+potion006
+  rotate: false
+  xy: 1247, 271
+  size: 6, 36
+  orig: 6, 36
+  offset: 0, 0
+  index: -1
+potion007
+  rotate: true
+  xy: 974, 61
+  size: 9, 38
+  orig: 9, 38
+  offset: 0, 0
+  index: -1
+potion008
+  rotate: false
+  xy: 1243, 5
+  size: 10, 15
+  orig: 10, 15
+  offset: 0, 0
+  index: -1
+potion009
+  rotate: false
+  xy: 609, 57
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+potion010
+  rotate: false
+  xy: 856, 36
+  size: 12, 9
+  orig: 12, 9
+  offset: 0, 0
+  index: -1
+spoon
+  rotate: true
+  xy: 974, 2
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+spoon light
+  rotate: true
+  xy: 1038, 2
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+steam
+  rotate: false
+  xy: 343, 181
+  size: 200, 126
+  orig: 200, 126
+  offset: 0, 0
+  index: -1
+stool
+  rotate: false
+  xy: 1093, 116
+  size: 103, 82
+  orig: 103, 82
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 1180, 63
+  size: 71, 47
+  orig: 71, 47
+  offset: 0, 0
+  index: -1
+water1
+  rotate: true
+  xy: 1229, 248
+  size: 59, 16
+  orig: 59, 16
+  offset: 0, 0
+  index: -1
+water2
+  rotate: false
+  xy: 1102, 5
+  size: 60, 15
+  orig: 60, 15
+  offset: 0, 0
+  index: -1
+water3
+  rotate: false
+  xy: 1164, 8
+  size: 60, 12
+  orig: 60, 12
+  offset: 0, 0
+  index: -1
+white eyes
+  rotate: false
+  xy: 1179, 22
+  size: 75, 36
+  orig: 75, 36
+  offset: 0, 0
+  index: -1
