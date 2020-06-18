@@ -37,27 +37,27 @@ For the official legal terms governing the Spine Runtimes, please read the [Spin
 This CMake-based project is an example of how to use the library on a 2D setting.
 
 ### Example 2D
-[Example 2D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d/example_2d.html)
+[Example 2D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d.html)
 
 <img src="./doc_images/example_2d.png" width="300">
 
 ### Example 2D Witch
-[Example 2D Witch](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat_witch/example_2d_cat_witch.html)
+[Example 2D Witch](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat_witch.html)
 
 <img src="./doc_images/example_2d_cat_witch.png" width="300">
 
 ### Example 2D Mesh Based Animation
-[Example 2D mesh](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_owl/example_2d_owl.html)
+[Example 2D mesh](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_owl.html)
 
 <img src="./doc_images/example_2d_owl.png" width="300">
 
 ### Example 2D Mesh Based Animation spine 3.7
-[Example 2D 3.7](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat/example_2d_cat.html)
+[Example 2D 3.7](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_2d_cat.html)
 
 <img src="./doc_images/example_2d_cat.png" width="300">
 
 ### Example 3D
-[Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d/example_3d.html)
+[Example 3D](https://htmlpreview.github.io/?https://github.com/WEREMSOFT/spine-raylib-runtimes/blob/master/html/example_3d.html)
 
 <img src="./doc_images/example_3d.png" width="300">
 
