@@ -25,6 +25,7 @@ LIBS_D := lib/
 HTML_D := html/
 ASM_D := asm/
 
+# Different demos requires different versions of spine
 SPINE_VERSION_3_8 := _3_8
 SPINE_SRC_D_3_8 := $(LIBS_D)spine/spine$(SPINE_VERSION_3_8)/src/spine/
 SPINE_SOURCES_3_8 := $(wildcard $(SPINE_SRC_D_3_8)*.c)
@@ -56,6 +57,7 @@ EMSC_CC_COMMAND := $(EMSC_CC) $(EMSC_CFLAGS) $(INCLUDE_D) $(STATIC_LIBS_D)
 # Set static libraries depending on de dettected OS
 #//////////////////////////////////////////////////
 
+# Sadly I didn't manage to fix the Windows part. PR will be apreciated.
 ifeq ($(DETTECTED_OS),Linux)
 	LINK_LIBS := -l:libraylib_$(DETTECTED_OS).a -lm -ldl -lpthread -lX11 -lxcb -lGL -lGLX -lXext -lGLdispatch -lXau -lXdmcp
 	TEST_LINK_LIBS := -lunity 
@@ -140,8 +142,11 @@ clean:
 run_%: $(BLD_D)%.$(BIN_EXTENSION)
 	$^
 
+# Eventually we will have tests. Not ready yet.
 test_%: $(TEST_BLD_D)%.spec.$(BIN_EXTENSION)
 	$^
 
+# This is reserved for future use. It shows the assembly of the file. Uses -S param of GCC. 
+# Not sure how to do it with other compilers.
 $(ASM_D)%.S: $(SRC_D)%.c
 	$(CC_COMMAND) -o $@ $(CFLAGS) -S $^ $(LINK_LIBS)  
