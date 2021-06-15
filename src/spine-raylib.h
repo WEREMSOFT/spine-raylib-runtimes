@@ -164,7 +164,7 @@ int VERTEX_ORDER_INVERSE[] = {4, 2, 1, 0};
 #include <glad.h>
 
 void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
-
+    int blend_mode = 4; //This mode doesnt exist
     int *vertex_order = (skeleton->scaleX * skeleton->scaleY < 0) ? VERTEX_ORDER_NORMAL : VERTEX_ORDER_INVERSE;
     // For each slot in the draw order array of the skeleton
     anti_z_fighting_index = SP_LAYER_SPACING_BASE;
@@ -182,20 +182,11 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
         // and the slot's color. Each color channel is given in the
         // range [0-1], you may have to multiply by 255 and cast to
         // and int if your engine uses integer ranges for color channels.
-        float tintR, tintG, tintB;
         float tintA = skeleton->color.a * slot->color.a;
-        if (PMA)
-        {
-            tintB = skeleton->color.b * slot->color.b * tintA;
-            tintR = skeleton->color.r * slot->color.r * tintA;
-            tintG = skeleton->color.g * slot->color.g * tintA;
-        }
-        else 
-        {
-            tintB = skeleton->color.b * slot->color.b;
-            tintR = skeleton->color.r * slot->color.r;
-            tintG = skeleton->color.g * slot->color.g;
-        }
+        float alpha = PMA ? tintA : 1;
+        float tintR = skeleton->color.r * slot->color.r * alpha;
+        float tintG = skeleton->color.g * slot->color.g * alpha;       
+        float tintB = skeleton->color.b * slot->color.b * alpha;
 
         // Fill the vertices array depending on the type of attachment
         Texture *texture = 0;
@@ -242,49 +233,29 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
                       regionAttachment->uvs[0], regionAttachment->uvs[1],
                       tintR, tintG, tintB, tintA, &vertexIndex);
 
-            if (PMA)
+            if (slot->data->blendMode != blend_mode)
             {
-                switch (slot->data->blendMode)
+                EndBlendMode(); //Need this line for blending to work for some reason
+                blend_mode = slot->data->blendMode;
+                switch (blend_mode)
                 {
-                    case 0:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
+                    default: //Normal
+                        rlSetBlendMode(PMA ? GL_ONE : GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                         break;
-                    case 1:
-                        rlSetBlendMode(GL_ONE, GL_ONE, GL_FUNC_ADD);
+                    case 1: //Additive
+                        rlSetBlendMode(PMA ? GL_ONE : GL_SRC_ALPHA, GL_ONE, GL_FUNC_ADD);
                         break;
-                    case 2:
+                    case 2: //Multiply
                         rlSetBlendMode(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                         break;
-                    case 3:
+                    case 3: //Screen
                         rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_FUNC_ADD);
                         break;
-                    default:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                 }
+                BeginBlendMode(BLEND_CUSTOM); 
             }
-            else
-            {
-                switch (slot->data->blendMode)
-                {
-                    case 0:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                        break;
-                    case 1:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE, GL_FUNC_ADD);
-                        break;
-                    case 2:
-                        rlSetBlendMode(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                        break;
-                    case 3:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_FUNC_ADD);
-                        break;
-                    default:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                }
-            }
-            BeginBlendMode(BLEND_CUSTOM); 
+            
             engine_draw_region(vertices, texture, position, vertex_order);
-            EndBlendMode();
         } else if (attachment->type == SP_ATTACHMENT_MESH) {
             // Cast to an spMeshAttachment so we can get the rendererObject
             // and compute the world vertices
@@ -317,52 +288,32 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
                           mesh->uvs[index], mesh->uvs[index + 1],
                           tintR, tintG, tintB, tintA, &vertexIndex);
             }
-            if (PMA)
+            if (slot->data->blendMode != blend_mode)
             {
-                switch (slot->data->blendMode)
+                EndBlendMode();
+                blend_mode = slot->data->blendMode;
+                switch (blend_mode)
                 {
-                    case 0:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
+                    default: //Normal
+                        rlSetBlendMode(PMA ? GL_ONE : GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                         break;
-                    case 1:
-                        rlSetBlendMode(GL_ONE, GL_ONE, GL_FUNC_ADD);
+                    case 1: //Additive
+                        rlSetBlendMode(PMA ? GL_ONE : GL_SRC_ALPHA, GL_ONE, GL_FUNC_ADD);
                         break;
-                    case 2:
+                    case 2: //Multiply
                         rlSetBlendMode(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                         break;
-                    case 3:
+                    case 3: //Screen
                         rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_FUNC_ADD);
                         break;
-                    default:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
                 }
+                BeginBlendMode(BLEND_CUSTOM); 
             }
-            else
-            {
-                switch (slot->data->blendMode)
-                {
-                    case 0:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                        break;
-                    case 1:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE, GL_FUNC_ADD);
-                        break;
-                    case 2:
-                        rlSetBlendMode(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                        break;
-                    case 3:
-                        rlSetBlendMode(GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_FUNC_ADD);
-                        break;
-                    default:
-                        rlSetBlendMode(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-                }
-            }
-            BeginBlendMode(BLEND_CUSTOM); 
             // Draw the mesh we created for the attachment
             engine_drawMesh(vertices, 0, vertexIndex, texture, position, vertex_order);
-            EndBlendMode();
         }
     }
+    EndBlendMode(); //Exit out
 }
 
 

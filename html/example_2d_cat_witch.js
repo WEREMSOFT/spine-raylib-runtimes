@@ -188,7 +188,7 @@ Module['FS_createPath']("/assets", "example_2d_cat_witch", true, true);
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/example_2d_cat_witch/cat.atlas", "start": 0, "end": 3644, "audio": 0}, {"filename": "/assets/example_2d_cat_witch/cat.json", "start": 3644, "end": 572946, "audio": 0}, {"filename": "/assets/example_2d_cat_witch/cat.png", "start": 572946, "end": 1076158, "audio": 0}], "remote_package_size": 1076158, "package_uuid": "66d1db1e-7355-4714-8939-17e410f32206"});
+   loadPackage({"files": [{"filename": "/assets/example_2d_cat_witch/cat.atlas", "start": 0, "end": 3644, "audio": 0}, {"filename": "/assets/example_2d_cat_witch/cat.json", "start": 3644, "end": 572946, "audio": 0}, {"filename": "/assets/example_2d_cat_witch/cat.png", "start": 572946, "end": 1076158, "audio": 0}], "remote_package_size": 1076158, "package_uuid": "bf417295-9249-459c-8cca-0a3a98e70f93"});
   
   })();
   
