@@ -41,7 +41,7 @@ void UpdateDrawFrame(void) {
     spAnimationState_update(animationState, GetFrameTime());
     spAnimationState_apply(animationState, skeleton);
     spSkeleton_updateWorldTransform(skeleton);
-    drawSkeleton(skeleton, skeletonPosition);
+    drawSkeleton(skeleton, skeletonPosition, true);
     DrawFPS(10, 10);
 
     EndDrawing();
