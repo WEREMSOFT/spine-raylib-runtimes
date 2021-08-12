@@ -115,6 +115,9 @@ $(HTML_D)example_2d_cat_witch.html: $(SRC_D)example_2d_cat_witch.c
 $(HTML_D)example_2d_cat_potion.html: $(SRC_D)example_2d_cat_potion.c
 	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_7) -o $@ $^ $(SPINE_SOURCES_3_7) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
 
+$(HTML_D)example_tint.html: $(SRC_D)example_tint.c
+	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_8) -o $@ $^ $(SPINE_SOURCES_3_8) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
+
 
 $(HTML_D)%.html: $(SRC_D)%.c
 	$(EMSC_CC_COMMAND) $(SPINE_INCLUDE_3_8) -o $@ $^ $(SPINE_SOURCES_3_8) $(EMSC_STATIC_LIBS_D) --preload-file ./assets/$(subst .html, ,$(@F))
