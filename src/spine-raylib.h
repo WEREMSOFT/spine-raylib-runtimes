@@ -178,15 +178,6 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
         spAttachment *attachment = slot->attachment;
         if (!attachment) continue;
 
-        // Calculate the tinting color based on the skeleton's color
-        // and the slot's color. Each color channel is given in the
-        // range [0-1], you may have to multiply by 255 and cast to
-        // and int if your engine uses integer ranges for color channels.
-        float tintA = skeleton->color.a * slot->color.a;
-        float alpha = PMA ? tintA : 1;
-        float tintR = skeleton->color.r * slot->color.r * alpha;
-        float tintG = skeleton->color.g * slot->color.g * alpha;       
-        float tintB = skeleton->color.b * slot->color.b * alpha;
 
         // Fill the vertices array depending on the type of attachment
         Texture *texture = 0;
@@ -195,6 +186,15 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
             // Cast to an spRegionAttachment so we can get the rendererObject
             // and compute the world vertices
             spRegionAttachment *regionAttachment = (spRegionAttachment *) attachment;
+            // Calculate the tinting color based on the skeleton's color,
+            // the slot's color and attachment's color. Each color channel is
+            // given in the range [0-1], you may have to multiply by 255 and
+            // cast to and int if your engine uses integer ranges for color channels.
+            float tintA = skeleton->color.a * slot->color.a * regionAttachment->color.a;
+            float alpha = PMA ? tintA : 1;
+            float tintR = skeleton->color.r * slot->color.r * regionAttachment->color.r * alpha;
+            float tintG = skeleton->color.g * slot->color.g * regionAttachment->color.g * alpha;
+            float tintB = skeleton->color.b * slot->color.b * regionAttachment->color.b * alpha;
 
             // Our engine specific Texture is stored in the spAtlasRegion which was
             // assigned to the attachment on load. It represents the texture atlas
@@ -260,6 +260,15 @@ void drawSkeleton(spSkeleton *skeleton, Vector3 position, bool PMA) {
             // Cast to an spMeshAttachment so we can get the rendererObject
             // and compute the world vertices
             spMeshAttachment *mesh = (spMeshAttachment *) attachment;
+            // Calculate the tinting color based on the skeleton's color,
+            // the slot's color and attachment's color. Each color channel is
+            // given in the range [0-1], you may have to multiply by 255 and
+            // cast to and int if your engine uses integer ranges for color channels.
+            float tintA = skeleton->color.a * slot->color.a * mesh->color.a;
+            float alpha = PMA ? tintA : 1;
+            float tintR = skeleton->color.r * slot->color.r * mesh->color.r * alpha;
+            float tintG = skeleton->color.g * slot->color.g * mesh->color.g * alpha;
+            float tintB = skeleton->color.b * slot->color.b * mesh->color.b * alpha;
 
             // Check the number of vertices in the mesh attachment. If it is bigger
             // than our scratch buffer, we don't render the mesh. We do this here
